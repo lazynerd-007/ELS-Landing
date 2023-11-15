@@ -4,21 +4,29 @@ import SUVs from "../assets/suvv.png"
 import Coupe from "../assets/ccoupe.png"
 import Helicopter from "../assets/helicopterr.png"
 import ColorBlocks from "../assets/color blocks.png"
+import Bentley from "../assets/hero-bg.png"
 
 const Header = () => {
     return (
         <div>
-            <section className="">
+            {/* <section className="bg-hero-bg bg-auto bg-custom"> */}
+            <section className="relative tablet:bg-hero-bg bg-cover bg-center">
                 {/* <div className="grid max-w-screen-xl px-4 py-8 bg-hero-bg bg-opacity-10 bg-cover opacity-30 mx-auto laptop:gap-8 xl:gap-0 laptop:py-16 laptop:grid-cols-12"> */}
-                <div className="grid max-w-screen-xl laptop:px-12 px-4 py-8 mx-auto laptop:gap-8 xl:gap-0 laptop:grid-cols-12">
+
+                {/* Overlay */}
+                {/* it covers the frst part of the header */}
+                {/* <div className="absolute inset-0 bg-black opacity-40 z-0"></div> */}
+
+                <div className="grid max-w-screen-xl z-30 laptop:px-12 tablet:px-8 px-4 py-8 mx-auto laptop:gap-8 xl:gap-0 laptop:grid-cols-12">
                     <div className="laptop:col-span-7">
                         <img src={ColorBlocks} className='mb-4' alt='color-blocks' />
                         <h1
                             className="max-w-2 mb-5 text-4xl tracking-tight leading-none tablet:text-5xl laptop:text-[3.5rem] font-black">
-                            Embark on a journey of opulence
+                            Embark on a journey of <br />
+                            opulence
                         </h1>
                         <p className="max-w-2xl mb-6 font-light laptop:leading-[2rem] text-white laptop:mb-8 tablet:text-lg laptop:text-[1.225rem]">
-                            Every Detail Crafted for the Discerning Connoisseur.
+                            Every Detail Crafted for the Discerning Connoisseur. <br />
                             Indulge in Timeless Sophistication, Where Luxury is <br />
                             not a Choice, but a Lifestyle.
                         </p>
@@ -26,15 +34,15 @@ const Header = () => {
                             Explore
                         </button>
                     </div>
-                    <div className="hidden laptop:mt-0 laptop:col-span-5 laptop:flex">
+                    {/* <div className="hidden laptop:mt-0 laptop:col-span-5 laptop:flex">
                         <img
-                            src="https://hips.hearstapps.com/hmg-prod/images/flying-spur-top-shot-1621351726.jpg?crop=0.502xw:1.00xh;0,0&resize=1200:*"
+                            src={Bentley}
                             className='opacity-50 w-[70%]'
-                            alt="mockup" />
-                    </div>
+                            alt="hero-bg" />
+                    </div> */}
                 </div>
 
-                <div className='mt-6 laptop:bg-opacity-40 laptop:backdrop-blur-md backdrop-blur-sm px-6 laptop:px-12 py-3 rounded-lg bg-transparent grid laptop:grid-cols-4 grid-cols-2 laptop:gap-8 gap-12 justify-between'>
+                <div className='mt-6 laptop:bg-opacity-10 hidden laptop:grid laptop:backdrop-blur-0 px-6 tablet:px-8 laptop:px-12 py-3 rounded-lg bg-transparent laptop:grid-cols-4 grid-cols-2 laptop:gap-8 gap-12 justify-between'>
                     <span>
                         <img src={Sedan} className='w-[10%]' alt='sedan' />
                         <h2 className='text-xl font-semibold'>

@@ -3,22 +3,22 @@
 export const NavbarData = [
   {
     title: "Home",
-    className: "",
+    bookmark: "",
   },
 
   {
     title: "Become A Driver",
-    className: "",
+    bookmark: "#Driver",
   },
 
   {
     title: "Become A Fleet Owner",
-    className: "",
+    bookmark: "#FleetOwner",
   },
 
   {
     title: "Help",
-    className: "",
+    bookmark: "#Help",
   },
 
 ];

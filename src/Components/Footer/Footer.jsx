@@ -9,7 +9,9 @@ const Footer = () => {
                     <div className="laptop:flex">
                         <div className="w-full -mx-6 laptop:w-2/5">
                             <div className="px-6">
-                                <img src={Logo} className='' alt='Logo' />
+                                <a href="#">
+                                    <img src={Logo} className='' alt='Logo' />
+                                </a>
                                 <p className="max-w-sm mt-2 text-sm">
                                     © 2023. All rights reserved
                                 </p>
