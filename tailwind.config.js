@@ -8,7 +8,7 @@ export default {
     theme: {
         extend: {
             backgroundImage: {
-                'hero-bg': "url('https://cdn.motor1.com/images/mgl/YXg6r/s3/2019-bentley-continental-gt-convertible.jpg')",
+                'hero-bg': "url('./src/assets/hero-bg.png')",
             }
         },
 
