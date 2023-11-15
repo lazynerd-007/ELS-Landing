@@ -6,7 +6,11 @@ export default {
         "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            backgroundImage: {
+                'hero-bg': "url('https://cdn.motor1.com/images/mgl/YXg6r/s3/2019-bentley-continental-gt-convertible.jpg')",
+            }
+        },
 
         screens: {
             'smaller': '450px',
