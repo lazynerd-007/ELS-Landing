@@ -3,7 +3,7 @@
 export const NavbarData = [
   {
     title: "Home",
-    bookmark: "",
+    bookmark: "#",
   },
 
   {
