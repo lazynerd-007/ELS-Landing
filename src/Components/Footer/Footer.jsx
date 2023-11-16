@@ -4,8 +4,8 @@ import Logo from '../../assets/Logo.png'
 const Footer = () => {
     return (
         <div>
-            <footer className="bg-[#0C0C0C] text-[#E5E7EB] py-20 border-t border-[#D1D5DB]/40 laptop:px-10 tablet:px-5 px-4 bottom-0">
-                <div className="p-4">
+            <footer className="bg-[#0C0C0C] text-[#E5E7EB] py-20 border-t border-[#D1D5DB]/40 laptop:px-12 tablet:px-8 px-4 bottom-0">
+                <div className="">
                     <div className="laptop:flex">
                         <div className="w-full -mx-6 laptop:w-2/5">
                             <div className="px-6">
