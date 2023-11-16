@@ -4,7 +4,7 @@ import { FaChevronDown } from "react-icons/fa6";
 const FAQs = () => {
     return (
         <section id="Help">
-            <div className='pt- space-y-8 laptop:pt- px-4 tablet:px-8 laptop:px-12'>
+            <div className='pt-16 space-y-8 px-4 tablet:px-8 laptop:px-12'>
                 <div>
                     <h1 className='text-[3rem] font-black leading-[3.6rem]'>
                         Frequently Asked Questions

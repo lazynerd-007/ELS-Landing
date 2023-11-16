@@ -1,9 +1,9 @@
-import Fleet from "../assets/fleet-o.png"
+import Fleet from "../../assets/fleet-o.png"
 
 const BecomeFleetOwner = () => {
     return (
         <section id="FleetOwner">
-            <div className='pt- space-y-8 laptop:pt- px-4 tablet:px-8 laptop:px-12'>
+            <div className='pt-16 space-y-8 px-4 tablet:px-8 laptop:px-12'>
                 <div className='laptop:flex justify-between gap-4'>
                     <h1 className='text-[3rem] font-black leading-[3.6rem]'>
                         Become A Fleet Owner And Grow <br />
