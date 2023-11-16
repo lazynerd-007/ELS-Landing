@@ -5,9 +5,9 @@ import FAQs from './FAQs'
 
 const Home = () => {
     return (
-        <section className='space-y-20'>
+        <section className='space-y- bg-[#0C0C0C] text-white pt-20'>
             {/* py-10 laptop:px-10 tablet:px-5 px-4 */}
-            <div className='border-b border-[#D1D5DB]/20 pb-10 py-20 h-screen w-full'>
+            <div className='border-b border-[#D1D5DB]/20 pb-10 py- h-screen w-full'>
                 <Header />
             </div>
             <div className='border-b border-[#D1D5DB]/20 py-10 '>

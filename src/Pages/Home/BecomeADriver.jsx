@@ -13,7 +13,7 @@ const BecomeADriver = () => {
 
                 <div className='laptop:flex justify-between gap-10 items-center space-y-'>
                     <div className="flex-1">
-                        <img src={Driver} className='' alt='driver' />
+                        <img src={Driver} className='w-full' alt='driver' />
                     </div>
 
                     <div className="flex-1 space-y-10 items-center mt-10 laptop:mt-0">

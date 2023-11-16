@@ -10,14 +10,14 @@ const Header = () => {
     return (
         <div>
             {/* <section className="bg-hero-bg bg-auto bg-custom"> */}
-            <section className="relative tablet:bg-hero-bg bg-cover bg-center">
+            <section className="relative tablet:bg-hero-bg bg-cover max-h-screen bg-center">
                 {/* <div className="grid max-w-screen-xl px-4 py-8 bg-hero-bg bg-opacity-10 bg-cover opacity-30 mx-auto laptop:gap-8 xl:gap-0 laptop:py-16 laptop:grid-cols-12"> */}
 
                 {/* Overlay */}
                 {/* it covers the frst part of the header */}
                 {/* <div className="absolute inset-0 bg-black opacity-40 z-0"></div> */}
 
-                <div className="grid max-w-screen-xl z-30 laptop:px-12 tablet:px-8 px-4 py-8 mx-auto laptop:gap-8 xl:gap-0 laptop:grid-cols-12">
+                <div className="grid max-w-screen-xl z-30 laptop:px-12 tablet:px-8 px-4 pt-12 mx-auto laptop:gap-8 laptop:grid-cols-12">
                     <div className="laptop:col-span-7">
                         <img src={ColorBlocks} className='mb-4' alt='color-blocks' />
                         <h1
@@ -42,7 +42,7 @@ const Header = () => {
                     </div> */}
                 </div>
 
-                <div className='mt-6 laptop:bg-opacity-10 hidden laptop:grid laptop:backdrop-blur-0 px-6 tablet:px-8 laptop:px-12 py-3 rounded-lg bg-transparent laptop:grid-cols-4 grid-cols-2 laptop:gap-8 gap-12 justify-between'>
+                <div className='laptop:mt-12 mt-6 laptop:bg-opacity-10 grid laptop:backdrop-blur-0 px-6 tablet:px-8 laptop:px-12 py-6 rounded-lg bg-transparent laptop:grid-cols-4 grid-cols-2 laptop:gap-8 gap-10 justify-between'>
                     <span>
                         <img src={Sedan} className='w-[10%]' alt='sedan' />
                         <h2 className='text-xl font-semibold'>
