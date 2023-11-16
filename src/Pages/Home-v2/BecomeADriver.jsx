@@ -6,7 +6,7 @@ import AppStore from "../../assets/AppStore.png"
 const BecomeADriver = () => {
     return (
         <section id="Driver">
-            <div className='pt-16 px-4 tablet:px-8 laptop:px-12'>
+            <div className='pt-20 px-4 tablet:px-8 laptop:px-12'>
                 <h1 className='text-[3rem] font-black'>
                     Become A Driver And Chauffeur
                 </h1>

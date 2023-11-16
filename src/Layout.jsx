@@ -1,14 +1,14 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "./Components/Navbar/Navbar"
-import Footer from "./Components/Footer/Footer"
-import ScrollButton from "./Components/ScrollToTop/ScrollToTop";
+// import Navbar from "./Components/Navbar/Navbar"
+// import Footer from "./Pages/Home/Footer"
+// import ScrollButton from "./Components/ScrollToTop/ScrollToTop";
 
 
 const Layout = () => {
     return (
-        <section className="bg-[#0C0C0C] text-white">
+        <section className="bg-[] text-white">
             <div>
-                <Navbar />
+                {/* <Navbar /> */}
             </div>
 
             <div className="">
@@ -16,7 +16,7 @@ const Layout = () => {
             </div>
 
             <div className="">
-                <Footer />
+                {/* <Footer /> */}
             </div>
             {/* <ScrollButton /> */}
         </section>
