@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from "./Layout";
-import HomePage from "./Pages/Home";
+import HomePage from "./Pages/Home/Home";
+import HomePageV2 from "./Pages/Home-v2/Home";
 import './App.css'
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path="v2" element={<HomePageV2 />} />
         </Route>
       </Routes>
     </Router>
