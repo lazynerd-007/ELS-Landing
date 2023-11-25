@@ -1,0 +1,31 @@
+/* font import */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+img {
+  -webkit-user-drag: none;
+  pointer-events: none;
+  /* Disable right-clicking */
+  /* user-drag: none; */
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+
+/* Made with 💙 by Stephen Adeniji
+https://stephen-adeniji.netlify.app/ */
