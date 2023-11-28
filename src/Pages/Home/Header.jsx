@@ -1,11 +1,11 @@
-import { TypeAnimation } from 'react-type-animation';
+// import { TypeAnimation } from 'react-type-animation';
 
 import Sedan from "../../assets/sedann.png"
 import SUVs from "../../assets/suvv.png"
 import Coupe from "../../assets/ccoupe.png"
 import Helicopter from "../../assets/helicopterr.png"
 import ColorBlocks from "../../assets/color blocks.png"
-import Bentley from "../../assets/hero-bg.png"
+// import Bentley from "../../assets/hero-bg.png"
 import { Link } from "react-router-dom"
 import Navbar from "./Navbar/Navbar"
 
@@ -25,9 +25,10 @@ const Header = () => {
                     <div className="laptop:col-span-7 w-max backdrop-blur-sm">
                         <img src={ColorBlocks} className='mb-4' alt='color-blocks' />
                         <h1
-                            className="max-w-2 mb-5 text-4xl tablet:text-5xl laptop:text-[3.5rem] tracking-tight leading-none font-black">
+                            className="mb-5 text-4xl tablet:text-5xl laptop:text-[3.5rem] tracking-tight leading-none font-black">
                             Embark on a journey of <br />
-                            <TypeAnimation
+                            opulence
+                            {/* <TypeAnimation
                                 sequence={[
                                     // Same substring at the start will only be typed once, initially
                                     'opulence',
@@ -42,7 +43,7 @@ const Header = () => {
                                 speed={50}
                                 style={{ fontSize: '2.25rem' }}
                                 repeat={Infinity}
-                            />
+                            /> */}
                         </h1>
                         <p className="max-w-2xl mb-6 font-light laptop:leading-[2rem] text-white laptop:mb-8 tablet:text-lg laptop:text-[1.225rem]">
                             Every Detail Crafted for the Discerning Connoisseur. <br />
