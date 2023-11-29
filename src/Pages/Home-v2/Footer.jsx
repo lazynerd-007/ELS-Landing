@@ -1,4 +1,4 @@
-import { FooterData } from "../Home/Navbar/NavbarData";
+import { FooterData } from "../../Components/Navbar/NavbarData";
 import Logo from '../../assets/Logo.png'
 
 const Footer = () => {

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-// import Navbar from "./Components/Navbar/Navbar"
+import Navbar from "./Components/Navbar/Navbar"
 // import Footer from "./Pages/Home/Footer"
 // import ScrollButton from "./Components/ScrollToTop/ScrollToTop";
 
@@ -8,7 +8,7 @@ const Layout = () => {
     return (
         <section className="bg-[] text-white">
             <div>
-                {/* <Navbar /> */}
+                <Navbar />
             </div>
 
             <div className="">

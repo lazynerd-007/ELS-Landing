@@ -5,14 +5,12 @@ import Helicopter from "../../assets/helicopterr.png"
 import ColorBlocks from "../../assets/color blocks.png"
 import Bentley from "../../assets/hero-bg.png"
 import { Link } from "react-router-dom"
-import Navbar from "./Navbar/Navbar"
 
 const Header = () => {
     return (
         <div>
             {/* <section className="bg-hero-bg bg-auto bg-custom"> */}
-            <section className="relative tablet:bg-v2-hero-bg bg-cover max-h-screen bg-center">
-                <Navbar />
+            <section className="relative pt-20 tablet:bg-v2-hero-bg bg-cover max-h-screen bg-center">
                 {/* <div className="grid max-w-screen-xl px-4 py-8 bg-hero-bg bg-opacity-10 bg-cover opacity-30 mx-auto laptop:gap-8 xl:gap-0 laptop:py-16 laptop:grid-cols-12"> */}
 
                 {/* Overlay */}
