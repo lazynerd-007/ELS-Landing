@@ -22,7 +22,7 @@ const HomePageV2 = () => {
             exit="exit"
             transition={{ duration: 1.5 }}
         >
-            <section className='space-y- bg-[#17161B] text-white pt-20'>
+            <section className='space-y- bg-[#17161B] text-white'>
                 {/* py-10 laptop:px-10 tablet:px-5 px-4 */}
                 <div className='border-b border-[#D1D5DB]/20 pb-10 py- h-screen w-full'>
                     <Header />

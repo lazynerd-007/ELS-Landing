@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom"
 
 const FAQs = () => {
     return (
@@ -9,7 +9,7 @@ const FAQs = () => {
                         Frequently Asked Questions
                     </h1>
                     <p className='text-[#616161] text-xl'>
-                        If you have any further question please <a className='link link-hover text-xl text-[#FEBB1B]'> contact us</a>
+                        If you have any further question please <Link to="/contact" className='link link-hover text-xl text-[#FEBB1B]'> contact us</Link>
                     </p>
                 </div>
 
