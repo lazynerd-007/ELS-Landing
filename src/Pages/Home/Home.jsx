@@ -3,7 +3,7 @@ import Header from './Header'
 import BecomeADriver from './BecomeADriver'
 import BecomeFleetOwner from './BecomeFleetOwner'
 import FAQs from './FAQs'
-import Footer from './Footer'
+
 
 // Define animation configuration
 const animationConfiguration = {
@@ -22,7 +22,7 @@ const HomePage = () => {
             transition={{ duration: 1.5 }}
         >
             <section className='space-y- bg-[#0C0C0C] text-white'>
-                {/* py-10 laptop:px-10 tablet:px-5 px-4 */}
+                {/* py-10 laptop:px-12 tablet:px-5 px-4 */}
                 <div className='border-b border-[#D1D5DB]/20 pb-10 py- h-screen w-full'>
                     <Header />
                 </div>
@@ -35,7 +35,6 @@ const HomePage = () => {
                 <div className='pb-10'>
                     <FAQs />
                 </div>
-                <Footer />
             </section>
         </motion.div>
     )
