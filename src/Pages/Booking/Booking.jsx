@@ -112,7 +112,7 @@ const Booking = () => {
                                 </div>
 
                                 <div className="laptop:w-1/2 laptop:mx-6">
-                                    <div className="w-full px-8 py-10 mx-auto overflow-hidden bg-[#0C0C0C]  shadow-2xl rounded-xl  laptop:max-w-xl">
+                                    <div className="w-full tablet:px-8 tablet:border-none border px-2 border-white/5 py-10 mx-auto overflow-hidden bg-[#0C0C0C]  shadow-2xl rounded-xl  laptop:max-w-xl">
                                         <form onSubmit={handleSubmit}
                                             className="">
 
@@ -123,12 +123,12 @@ const Booking = () => {
                                                 <select
                                                     name="cars"
                                                     id="cars"
-                                                    className='text-[#A6A6A6] py-1 px-0 rounded-sm bg-transparent border-none w-full'
+                                                    className='text-[#A6A6A6] py-1 px-2 rounded-sm bg-transparent border-none w-full'
                                                 >
-                                                    <option value="volvo">Volvo</option>
-                                                    <option value="saab">Saab</option>
-                                                    <option value="mercedes">Mercedes</option>
-                                                    <option value="audi">Audi</option>
+                                                    <option value="Buy a Car">Buy a Car</option>
+                                                    <option value="Rent a Car">Rent a Car</option>
+                                                    <option value="Sell a Car">Sell a Car</option>
+                                                    <option value="Become a Driver">Become a Driver</option>
                                                 </select>
                                             </div>
 
@@ -139,12 +139,14 @@ const Booking = () => {
                                                 <select
                                                     name="cars"
                                                     id="cars"
-                                                    className='text-[#A6A6A6] py-1 px-0 rounded-sm bg-transparent border-none w-full'
+                                                    className='text-[#A6A6A6] py-1 px-2 rounded-sm bg-transparent border-none w-full'
                                                 >
-                                                    <option value="volvo">Volvo</option>
-                                                    <option value="saab">Saab</option>
-                                                    <option value="mercedes">Mercedes</option>
-                                                    <option value="audi">Audi</option>
+                                                    <option value="BMW">BMW</option>
+                                                    <option value="Bentley">Bentley</option>
+                                                    <option value="Mercedes">Mercedes</option>
+                                                    <option value="Audi">Audi</option>
+                                                    <option value="Range Rover">Range Rover</option>
+                                                    <option value="Rolls-Royce">Rolls-Royce</option>
                                                 </select>
                                             </div>
                                             <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
@@ -169,7 +171,7 @@ const Booking = () => {
                                                     <DatePicker onChange={onChange}
                                                         className='w-full text-[#A6A6A6]' />
                                                 </Space>
-                                                {/* className='text-[#A6A6A6] py-1 px-0 rounded-sm bg-transparent border-none w-full' */}
+                                                {/* className='text-[#A6A6A6] py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
                                             </div>
                                             <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
                                                 <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
@@ -178,12 +180,17 @@ const Booking = () => {
                                                 <select
                                                     name="cars"
                                                     id="cars"
-                                                    className='text-[#A6A6A6] py-1 px-0 rounded-sm bg-transparent border-none w-full'
+                                                    className='text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full'
                                                 >
-                                                    <option value="volvo">Volvo</option>
-                                                    <option value="saab">Saab</option>
-                                                    <option value="mercedes">Mercedes</option>
-                                                    <option value="audi">Audi</option>
+                                                    <option value="9am">9am</option>
+                                                    <option value="10am">10am</option>
+                                                    <option value="11am">11am</option>
+                                                    <option value="12pm">12pm</option>
+                                                    <option value="1pm">1pm</option>
+                                                    <option value="2pm">2pm</option>
+                                                    <option value="3pm">3pm</option>
+                                                    <option value="4pm">4pm</option>
+                                                    <option value="5pm">5pm</option>
                                                 </select>
                                             </div>
                                             <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
@@ -208,7 +215,7 @@ const Booking = () => {
                                                     <DatePicker onChange={onChange}
                                                         className='w-full text-[#A6A6A6]' />
                                                 </Space>
-                                                {/* className='text-[#A6A6A6] py-1 px-0 rounded-sm bg-transparent border-none w-full' */}
+                                                {/* className='text-[#A6A6A6] py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
                                             </div>
                                             <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
                                                 <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
@@ -217,12 +224,17 @@ const Booking = () => {
                                                 <select
                                                     name="cars"
                                                     id="cars"
-                                                    className='text-[#A6A6A6] py-1 px-0 rounded-sm bg-transparent border-none w-full'
+                                                    className='text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full'
                                                 >
-                                                    <option value="volvo">Volvo</option>
-                                                    <option value="saab">Saab</option>
-                                                    <option value="mercedes">Mercedes</option>
-                                                    <option value="audi">Audi</option>
+                                                    <option value="9am">9am</option>
+                                                    <option value="10am">10am</option>
+                                                    <option value="11am">11am</option>
+                                                    <option value="12pm">12pm</option>
+                                                    <option value="1pm">1pm</option>
+                                                    <option value="2pm">2pm</option>
+                                                    <option value="3pm">3pm</option>
+                                                    <option value="4pm">4pm</option>
+                                                    <option value="5pm">5pm</option>
                                                 </select>
                                             </div>
                                             <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
@@ -260,12 +272,12 @@ const Booking = () => {
                                                 <select
                                                     name="cars"
                                                     id="cars"
-                                                    className='text-[#A6A6A6] py-1 px-0 rounded-sm bg-transparent border-none w-full'
+                                                    className='text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full'
                                                 >
-                                                    <option value="volvo">Volvo</option>
-                                                    <option value="saab">Saab</option>
-                                                    <option value="mercedes">Mercedes</option>
-                                                    <option value="audi">Audi</option>
+                                                    <option value="₦1.5m">₦1.5m</option>
+                                                    <option value="₦2m">₦2m</option>
+                                                    <option value="₦2.5m">₦2.5m</option>
+                                                    <option value="₦3m">₦3m</option>
                                                 </select>
                                             </div>
 
@@ -282,7 +294,7 @@ const Booking = () => {
                                                     placeholder="John Doe"
                                                     className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-dashed border-gray-200 rounded-md focus:ring-opacity-40 focus:outline-none focus:ring"
                                                 />
-                                                {/* className='text-[#A6A6A6] py-1 px-0 rounded-sm bg-transparent border-none w-full' */}
+                                                {/* className='text-[#A6A6A6] py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
                                             </div>
 
                                             <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
