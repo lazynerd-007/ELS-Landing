@@ -7,7 +7,7 @@ const NavDropdown = () => {
     return (
         <div>
             <Dropdown
-                className="right-0 bg-black mt-2 bg-opacity-90 backdrop-blur-md w-[20rem]"
+                className="right-0 bg-black mt-2 bg-opacity-90 border-none backdrop-blur-lg w-full"
                 label="" dismissOnClick={true} renderTrigger={() =>
                     <button className="btn bg-transparent border-none text-white rounded-none hover:bg-transparent" title="Menu">
                         <RxHamburgerMenu className='w-5 h-5' />
@@ -26,9 +26,9 @@ const NavDropdown = () => {
 
                 {NavbarData.map((item, index) => (
                     <div key={index}
-                        className='p-4 border border-white/30 w-full'>
+                        className='p-4 w-full'>
                         <a href={item.bookmark}
-                            className="text-base py-2 text-white font-bold">
+                            className="text-base py-2 text-white font-semibold">
                             {item.title}
                         </a>
                     </div>
