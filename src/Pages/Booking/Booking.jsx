@@ -21,6 +21,8 @@ const Booking = () => {
     const [service, setService] = useState('');
     const [selectedCar, setSelectedCar] = useState('');
     const [fuelOption, setFuelOption] = useState('');
+    const [pickUpTime, setPickupTime] = useState('');
+    const [dropOffTime, setDropOffTime] = useState('');
 
     const [values, setValues] = useState({
         from_name: '',
@@ -67,10 +69,11 @@ const Booking = () => {
         }
 
         // Set the discounted price in the form values
-        setValues({
-            // ... (other form values)
-            discountPrice: priceInfo.discounted,
-        });
+        const discountedPrice = priceInfo.discounted;
+        setValues((prevValues) => ({
+            ...prevValues,
+            discountPrice: discountedPrice,
+        }));
 
 
 
@@ -145,28 +148,54 @@ const Booking = () => {
         setService(value);
         setSelectedCar(''); // Reset selectedCar when changing service
         setFuelOption(''); // Reset fuelOption when changing service
+        console.log('Selected service:', value);
+        setValues({
+            ...values,
+            service: value,
+            selectedCar: '', // Reset selectedCar
+            fuelOption: '', // Reset fuelOption
+        });
     };
 
     const handleCarChange = (event) => {
         const value = event.target.value;
         setSelectedCar(value);
-        console.log('Selected car:', selectedCar);
+        console.log('Selected car:', value); // Use 'value' instead of 'selectedCar'
+        setValues({
+            ...values,
+            selectedCar: value,
+        });
     };
 
 
     const handlePickupTimeChange = (event) => {
         const value = event.target.value;
         setPickupTime(value);
+        console.log('Pickup Time:', value); // Use 'value' instead of 'pickUpTime'
+        setValues({
+            ...values,
+            pickUpTime: value,
+        });
     };
 
     const handleDropOffTimeChange = (event) => {
         const value = event.target.value;
         setDropOffTime(value);
+        console.log('Dropoff Time:', value); // Use 'value' instead of 'dropOffTime'
+        setValues({
+            ...values,
+            dropOffTime: value,
+        });
     };
 
     const handleFuelOptionChange = (event) => {
         const value = event.target.value;
         setFuelOption(value);
+        console.log('Fuel Option:', value); // Use 'value' instead of 'fuelOption'
+        setValues({
+            ...values,
+            fuelOption: value,
+        });
     };
 
     const calculatePrice = () => {
@@ -187,6 +216,7 @@ const Booking = () => {
 
         const originalPrice = car.prices[originalPriceKey];
         const discountedPrice = originalPrice - (originalPrice * 0.025);
+        console.log('Discounted Price:', discountedPrice)
 
         return { original: originalPrice.toFixed(2), discounted: discountedPrice.toFixed(2) };
     };
@@ -207,7 +237,7 @@ const Booking = () => {
                     <div className="flex flex-col min-h-screen">
                         <div className="container flex flex-col flex-1 py-12 mx-auto">
                             <div className="flex-1 laptop:flex laptop:items-cente laptop:-mx-6">
-                                <div className="text-white space-y-10 laptop:w-1/2 laptop:mx-6 hidde mb-10 laptop:mb-0 laptop:block">
+                                <div className="text-white space-y-10 laptop:w-1/2 laptop:mx-6 mb-10 laptop:mb-0 laptop:block">
                                     <div className="">
 
                                         <div className='laptop:space-y-8 space-y-4 '>
@@ -266,7 +296,7 @@ const Booking = () => {
                                                 </label>
                                                 <select
                                                     value={service}
-                                                    onChange={(value) => handleServiceChange(value)}
+                                                    onChange={(event) => handleServiceChange(event)}
                                                     name="service"
                                                     id="service"
                                                     className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full'
@@ -287,7 +317,7 @@ const Booking = () => {
                                                 </label>
                                                 <select
                                                     value={selectedCar}
-                                                    onChange={(event) => handleCarChange(event)}  // Fix: Pass the event object to handleCarChange
+                                                    onChange={(event) => handleCarChange(event)}
                                                     disabled={!service}
                                                     name="selectedCar"
                                                     id="selectedCar"
@@ -342,6 +372,8 @@ const Booking = () => {
                                                 <select
                                                     name="pickUpTime"
                                                     id="pickUpTime"
+                                                    value={pickUpTime}
+                                                    onChange={(event) => handlePickupTimeChange(event)}
                                                     className='text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full'
                                                 >
                                                     <option value="" className='bg-black'>Select Time</option>
@@ -386,6 +418,8 @@ const Booking = () => {
                                                 <select
                                                     name="dropOffTime"
                                                     id="dropOffTime"
+                                                    value={dropOffTime}
+                                                    onChange={(event) => handleDropOffTimeChange(event)}
                                                     className='text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full'
                                                 >
                                                     <option value="" className='bg-black'>Select Time</option>
@@ -433,7 +467,7 @@ const Booking = () => {
                                                 </label>
                                                 <select
                                                     value={fuelOption}
-                                                    onChange={(value) => handleFuelOptionChange(value)}
+                                                    onChange={(event) => handleFuelOptionChange(event)}
                                                     name="fuelOption"
                                                     id="fuelOption"
                                                     disabled={!selectedCar}
@@ -459,7 +493,7 @@ const Booking = () => {
                                                             {`₦${calculatePrice().original}`}
                                                         </p>
                                                         {/* Hidden Paragraph for Discounted Price */}
-                                                        <p id='discountPrice' name="discountPrice" className="hidden">
+                                                        <p id='discountPrice' name="discountPrice" className='invisible'>
                                                             {`₦${calculatePrice().discounted}`}
                                                         </p>
                                                     </>
