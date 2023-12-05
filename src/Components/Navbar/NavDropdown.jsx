@@ -7,7 +7,7 @@ const NavDropdown = () => {
     return (
         <div>
             <Dropdown
-                className="right-0 bg-black mt-2 bg-opacity-90 border-none backdrop-blur-lg w-full"
+                className="right-0 bg-[#0a0a0a] mt-2 bg-opacity- border-none backdrop-blur-lg w-full tablet:w-[20rem]"
                 label="" dismissOnClick={true} renderTrigger={() =>
                     <button className="btn bg-transparent border-none text-white rounded-none hover:bg-transparent" title="Menu">
                         <RxHamburgerMenu className='w-5 h-5' />

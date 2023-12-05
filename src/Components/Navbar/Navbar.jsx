@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { NavbarData } from "./NavbarData";
 import NavDropdown from "./NavDropdown";
 
@@ -7,9 +8,10 @@ const Navbar = () => {
     return (
         <div className="">
             <div className="navbar bg-opacity-60 backdrop-blur-sm z-50 fixed top-0 bg-transparent text-white py-4 laptop:px-12 tablet:px-8 px-4">
-                {/* border-b border-[#D1D5DB]/40 */}
                 <div className="navbar-start">
-                    <a className="text-4xl font-black">LOGO</a>
+                    <Link to="/" className="text-4xl font-black">
+                        LOGO
+                    </Link>
                 </div>
                 <div className="navbar-end hidden laptop:flex">
                     {NavbarData.map((item, index) => (
