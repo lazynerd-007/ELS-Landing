@@ -23,7 +23,7 @@ const HomePage = () => {
         >
             <section className='space-y- bg-[#0C0C0C] text-white'>
                 {/* py-10 laptop:px-12 tablet:px-5 px-4 */}
-                <div className='border-b border-[#D1D5DB]/20 pb-10 py- h-screen w-full'>
+                <div className='border-b border-[#D1D5DB]/20 pb-10 tablet:pb-0 w-full'>
                     <Header />
                 </div>
                 <div className='border-b border-[#D1D5DB]/20 pb-10 '>

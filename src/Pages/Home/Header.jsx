@@ -12,7 +12,7 @@ const Header = () => {
     return (
         <div>
             {/* <section className="bg-hero-bg bg-auto bg-custom"> */}
-            <section className="relative pt-20 tablet:bg-hero-bg bg-cover max-h-screen bg-center">
+            <section className="relative pt-20 tablet:bg-hero-bg bg-cover min-h-screen bg-center">
                 {/* <div className="grid max-w-screen-xl px-4 py-8 bg-hero-bg bg-opacity-10 bg-cover opacity-30 mx-auto laptop:gap-8 xl:gap-0 laptop:py-16 laptop:grid-cols-12"> */}
 
                 {/* Overlay */}
