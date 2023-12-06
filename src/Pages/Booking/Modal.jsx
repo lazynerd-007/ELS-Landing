@@ -14,9 +14,9 @@ export const BookingModal = ({ openModal, onClose, values }) => {
             </button> */}
             <Modal dismissible show={openModal} size="lg" onClose={onClose} className='bg-[#121313] text-white'>
                 <Modal.Header>
-                    <h3 className='font-bold text-2xl'>
+                    <span className='font-bold text-2xl'>
                         Booking details
-                    </h3>
+                    </span>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="">

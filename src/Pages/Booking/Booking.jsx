@@ -179,7 +179,7 @@ const Booking = () => {
 
         // Find the corresponding car object from carList
         const selectedCarObject = carList.find((car) => car.id === parseInt(selectedCarId));
-        console.log('Selected car:', selectedCarId);
+        // console.log('Selected car:', selectedCarId);
         // Set the car name in the values state
         setValues({
             ...values,
