@@ -98,25 +98,32 @@ const Booking = () => {
             // Display an error toast
             toast.error('Error sending email');
         }
+    };
 
-        // Reset the form after submission
-        // setValues({
-        //     from_name: '',
-        //     email: '',
-        //     phoneNo: '',
-        //     service: '',
-        //     selectedCar: '',
-        //     departure: '',
-        //     pickUpDate: '',
-        //     pickUpTime: '',
-        //     destination: '',
-        //     endDate: '',
-        //     dropOffTime: '',
-        //     pickUpAddress: '',
-        //     dropOffAddress: '',
-        //     fuelOption: '',
-        //     discountPrice: '',
-        // });
+    const handleCloseModal = () => {
+        // Clear the form values
+        setValues({
+            from_name: '',
+            email: '',
+            phoneNo: '',
+            service: '',
+            selectedCar: '',
+            departure: '',
+            pickUpDate: '',
+            pickUpTime: '',
+            destination: '',
+            endDate: '',
+            dropOffTime: '',
+            pickUpAddress: '',
+            dropOffAddress: '',
+            fuelOption: '',
+            discountPrice: '',
+        });
+        // Close the modal
+        setOpenModal(false);
+
+        // Or Refresh the page
+        // window.location.reload();
     };
 
     const handleInputChange = (e) => {
@@ -240,7 +247,8 @@ const Booking = () => {
             transition={{ duration: 1.5 }}
         >
             <ToastContainer />
-            <BookingModal openModal={openModal} onClose={() => setOpenModal(false)} values={values} />
+            <BookingModal openModal={openModal} onClose={handleCloseModal} values={values} />
+
 
             <section className="bg-[#0C0C0C] tablet:bg-hero-bg text-white pt-20 laptop:pt-28">
                 <div className="pt- min-h-screen laptop:px-12 tablet:px-8 px-4">
