@@ -1,0 +1,849 @@
+https://codesandbox.io/p/sandbox/fancy-star-dv4vl5?file=%2Findex.html%3A13%2C35
+
+<!DOCTYPE html>
+<html lang="en">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist&display=swap" rel="stylesheet">
+
+<head>
+  <meta charset="utf-8" />
+  <style>
+    /* Reset styles */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist&display=swap');
+    * {
+      -webkit-font-smoothing: antialiased;
+      box-sizing: border-box;
+      font-family: 'Urbanist', sans-serif;
+    }
+
+    body,
+    html {
+      margin: 0;
+      height: 100%;
+    }
+
+    /* Generic focus style */
+    button:focus-visible {
+      outline: 2px solid #4a90e2 !important;
+      outline: -webkit-focus-ring-color auto 5px !important;
+    }
+
+    /* Remove link underline */
+    a {
+      text-decoration: none;
+    }
+
+    /* Global variables */
+    :root {
+  --button-color: rgba(254, 187, 27, 1);
+  --text-color-1: rgba(33, 33, 33, 1);
+  --text-color-2: rgba(97, 97, 97, 1);
+  --color-for-dark-mode: rgba(24, 26, 32, 1);
+  --default-button-color: rgba(255, 248, 232, 1);
+  --color-for-white-mode: rgba(255, 255, 255, 1);
+  --another-yellow: rgba(250, 159, 41, 1);
+  --yellow-2: rgba(225, 152, 43, 1);
+  --warning-color: rgba(253, 60, 74, 1);
+  --sucess-color: rgba(0, 168, 107, 1);
+  --more-color: rgba(127, 61, 255, 1);
+  --header-1-font-family: 'Urbanist', sans-serif;
+  --header-1-font-weight: 800;
+  --header-1-font-size: 36px;
+  --header-1-letter-spacing: -0.72px;
+  --header-1-line-height: 57.599998474121094px;
+  --header-1-font-style: normal;
+  --header-3-font-family: 'Urbanist', sans-serif;
+  --header-3-font-weight: 400;
+  --header-3-font-size: 18px;
+  --header-3-letter-spacing: -0.36px;
+  --header-3-line-height: 28.799999237060547px;
+  --header-3-font-style: normal;
+  --header-2-font-family: "Urbanist-SemiBold", Helvetica;
+  --header-2-font-weight: 600;
+  --header-2-font-size: 24px;
+  --header-2-letter-spacing: -0.48px;
+  --header-2-line-height: 38.400001525878906px;
+  --header-2-font-style: normal;
+  --header-4-font-family: 'Urbanist', sans-serif;
+  --header-4-font-weight: 400;
+  --header-4-font-size: 16px;
+  --header-4-letter-spacing: -0.32px;
+  --header-4-line-height: 25.600000381469727px;
+  --header-4-font-style: normal;
+  --header-5-font-family: 'Urbanist', sans-serif;
+  --header-5-font-weight: 400;
+  --header-5-font-size: 16px;
+  --header-5-letter-spacing: -0.32px;
+  --header-5-line-height: 25.600000381469727px;
+  --header-5-font-style: normal;
+  --body-small-light-font-family: 'Urbanist', sans-serif;
+  --body-small-light-font-weight: 400;
+  --body-small-light-font-size: 14px;
+  --body-small-light-letter-spacing: -0.28px;
+  --body-small-light-line-height: 22.399999618530273px;
+  --body-small-light-font-style: normal;
+  --body-small-medium-font-family: 'Urbanist', sans-serif;
+  --body-small-medium-font-weight: 500;
+  --body-small-medium-font-size: 14px;
+  --body-small-medium-letter-spacing: -0.28px;
+  --body-small-medium-line-height: 22.399999618530273px;
+  --body-small-medium-font-style: normal;
+  --body-small-semibold-font-family: "Urbanist-SemiBold", Helvetica;
+  --body-small-semibold-font-weight: 600;
+  --body-small-semibold-font-size: 14px;
+  --body-small-semibold-letter-spacing: -0.28px;
+  --body-small-semibold-line-height: 22.399999618530273px;
+  --body-small-semibold-font-style: normal;
+  --body-extra-small-font-family: 'Urbanist', sans-serif;
+  --body-extra-small-font-weight: 500;
+  --body-extra-small-font-size: 12px;
+  --body-extra-small-letter-spacing: -0.24px;
+  --body-extra-small-line-height: 19.200000762939453px;
+  --body-extra-small-font-style: normal;
+  --small-15-size-font-family: 'Urbanist', sans-serif;
+  --small-15-size-font-weight: 500;
+  --small-15-size-font-size: 15px;
+  --small-15-size-letter-spacing: -0.3px;
+  --small-15-size-line-height: 22.399999618530273px;
+  --small-15-size-font-style: normal;
+}
+
+
+    /* Your specific styles go here */
+    .email-USER {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.email-USER .preheader-center-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-color: #ffffff;
+}
+
+.email-USER .column-for-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.email-USER .navigation {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.email-USER .link {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: var(--body-extra-small-font-family);
+  font-weight: var(--body-extra-small-font-weight);
+  color: #777777;
+  font-size: var(--body-extra-small-font-size);
+  text-align: center;
+  letter-spacing: var(--body-extra-small-letter-spacing);
+  line-height: var(--body-extra-small-line-height);
+  white-space: nowrap;
+  font-style: var(--body-extra-small-font-style);
+}
+
+.email-USER .full-image-row-for {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-color: #ffffff;
+}
+
+.email-USER .hero {
+  position: relative;
+  width: 600px;
+  height: 504px;
+  object-fit: cover;
+}
+
+.email-USER .wrapper-for-multiple {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 34px 32px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.email-USER .title-text-button {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 40px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-color: #0e0b08;
+}
+
+.email-USER .div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.email-USER .text {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: var(--header-2-font-family);
+  font-weight: var(--header-2-font-weight);
+  color: #ffffff;
+  font-size: var(--header-2-font-size);
+  text-align: center;
+  letter-spacing: var(--header-2-letter-spacing);
+  line-height: var(--header-2-line-height);
+  font-style: var(--header-2-font-style);
+}
+
+.email-USER .text-wrapper {
+  font-weight: var(--header-5-font-weight);
+  color: #ffffff;
+  font-size: var(--header-5-font-size);
+  text-align: center;
+  letter-spacing: var(--header-5-letter-spacing);
+  line-height: var(--header-5-line-height);
+  position: relative;
+  align-self: stretch;
+  font-family: var(--header-5-font-family);
+  font-style: var(--header-5-font-style);
+}
+
+.email-USER .spacer {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  height: 8px;
+}
+
+.email-USER .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 56px;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: var(--button-color);
+  border-radius: 60px;
+  overflow: hidden;
+  all: unset;
+  box-sizing: border-box;
+}
+
+.email-USER .learn-more {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Urbanist", Helvetica;
+  font-weight: 500;
+  color: var(--text-color-1);
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: -0.28px;
+  line-height: 22.4px;
+  white-space: nowrap;
+}
+
+.email-USER .learn-more-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 66px;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: #14100c;
+  border-radius: 60px;
+  overflow: hidden;
+  border: 1px solid;
+  border-color: var(--button-color);
+  all: unset;
+  box-sizing: border-box;
+}
+
+.email-USER .learn-more-2 {
+  color: #ffffff;
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Urbanist", Helvetica;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: -0.28px;
+  line-height: 22.4px;
+  white-space: nowrap;
+}
+
+.email-USER .row-for-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.email-USER .block-angle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.email-USER .block-angle {
+  position: relative;
+  width: 536px;
+  height: 30px;
+  object-fit: cover;
+}
+
+.email-USER .image-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0px 0px 24px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.email-USER .image {
+  position: relative;
+  width: 600px;
+  height: 33px;
+  object-fit: cover;
+}
+
+.email-USER .column-for-content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 32px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-color: #fbfbf9;
+}
+
+.email-USER .text-2 {
+  margin-top: -1px;
+  font-weight: 600;
+  color: #000000;
+  font-size: 24px;
+  letter-spacing: -0.48px;
+  line-height: 38.4px;
+  position: relative;
+  align-self: stretch;
+  font-family: "Urbanist", Helvetica;
+}
+
+.email-USER .p {
+  font-weight: var(--header-3-font-weight);
+  color: #30332c;
+  font-size: var(--header-3-font-size);
+  letter-spacing: var(--header-3-letter-spacing);
+  line-height: var(--header-3-line-height);
+  position: relative;
+  align-self: stretch;
+  font-family: var(--header-3-font-family);
+  font-style: var(--header-3-font-style);
+}
+
+.email-USER .spacer-2 {
+  height: 4px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+}
+
+.email-USER .frame {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 75px 114px;
+  position: relative;
+  flex: 0 0 auto;
+  margin-right: -1px;
+  background-color: #ffffff;
+}
+
+.email-USER .frame-2 {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 218px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.email-USER .text-wrapper-2 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  text-align: center;
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .frame-3 {
+  display: flex;
+  width: 373px;
+  align-items: flex-start;
+  gap: 194px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.email-USER .text-wrapper-3 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .text-wrapper-4 {
+  position: relative;
+  width: 142px;
+  margin-top: -1px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  text-align: right;
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .frame-4 {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 194px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.email-USER .div-wrapper {
+  position: relative;
+  width: 36px;
+  height: 16px;
+}
+
+.email-USER .text-wrapper-5 {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .frame-5 {
+  position: relative;
+  width: 143px;
+  height: 16px;
+}
+
+.email-USER .text-wrapper-6 {
+  position: absolute;
+  top: -1px;
+  left: 99px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  text-align: right;
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .text-wrapper-7 {
+  position: absolute;
+  top: -1px;
+  left: 107px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  text-align: right;
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .text-wrapper-8 {
+  position: absolute;
+  top: -1px;
+  left: 74px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  text-align: right;
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .text-wrapper-9 {
+  position: absolute;
+  top: -1px;
+  left: 94px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  text-align: right;
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .text-wrapper-10 {
+  position: absolute;
+  top: -1px;
+  left: 100px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  text-align: right;
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .text-wrapper-11 {
+  position: absolute;
+  top: -1px;
+  left: 96px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  text-align: right;
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .text-wrapper-12 {
+  position: absolute;
+  top: -1px;
+  left: 48px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  text-align: right;
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .text-wrapper-13 {
+  position: absolute;
+  top: -1px;
+  left: 122px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  text-align: right;
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .text-wrapper-14 {
+  position: absolute;
+  top: -1px;
+  left: 69px;
+  font-family: var(--body-small-medium-font-family);
+  font-weight: var(--body-small-medium-font-weight);
+  color: var(--text-color-1);
+  font-size: var(--body-small-medium-font-size);
+  text-align: right;
+  letter-spacing: var(--body-small-medium-letter-spacing);
+  line-height: var(--body-small-medium-line-height);
+  white-space: nowrap;
+  font-style: var(--body-small-medium-font-style);
+}
+
+.email-USER .title-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 112px 16px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-image: url();
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.email-USER .text-3 {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Urbanist", Helvetica;
+  font-weight: 600;
+  color: #000;
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: -0.48px;
+  line-height: 38.4px;
+}
+
+.email-USER .text-4 {
+  font-weight: 800;
+  color: #000;
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: -0.48px;
+  line-height: 38.4px;
+  position: relative;
+  align-self: stretch;
+  font-family: "Urbanist", Helvetica;
+}
+
+.email-USER .spacer-3 {
+  height: 16px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+}
+
+.email-USER .footer-social-row {
+  display: flex;
+  align-items: center;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-color: #292728;
+}
+
+.email-USER .column-for-content-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 30px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.email-USER .text-5 {
+  margin-top: -1px;
+  font-weight: var(--body-small-semibold-font-weight);
+  color: #ffffff;
+  font-size: var(--body-small-semibold-font-size);
+  letter-spacing: var(--body-small-semibold-letter-spacing);
+  line-height: var(--body-small-semibold-line-height);
+  position: relative;
+  align-self: stretch;
+  font-family: var(--body-small-semibold-font-family);
+  font-style: var(--body-small-semibold-font-style);
+}
+
+.email-USER .img {
+  position: relative;
+  flex: 0 0 auto;
+}
+  </style>
+</head>
+
+<body>
+   <div class="email-USER">
+      <div class="preheader-center-row">
+        <div class="column-for-content">
+          <div class="navigation">
+            <div class="link">View in the browser</div>
+            <div class="link">Unsubscribe</div>
+          </div>
+        </div>
+      </div>
+      <div class="full-image-row-for">
+        <div class="column-for-content">
+          <img class="hero" src="https://c.animaapp.com/6BBlzofc/img/hero-1-1.png" />
+        </div>
+      </div>
+      <div class="wrapper-for-multiple">
+        <div class="title-text-button">
+          <div class="div">
+            <div class="text">Hi Smiles Davis,</div>
+            <p class="text-wrapper">
+              Great news! Your ride has been successfully booked. A sleek {{selectedCar}} will be arriving at your location
+              on {{pickUpDate}} at {{pickUpTime}} to take you to your destination.<br />Thank you for booking a ride with us, You will
+              be attended to shortly
+            </p>
+            <div class="spacer"></div>
+            <button class="button"><div class="learn-more">BOOK AGAIN</div></button>
+            <button class="learn-more-wrapper"><div class="learn-more-2">REMIND ME LATER</div></button>
+          </div>
+        </div>
+        <div class="row-for-content">
+          <div class="block-angle-wrapper">
+            <img class="block-angle" src="https://c.animaapp.com/6BBlzofc/img/block-angle-1-1.png" />
+          </div>
+        </div>
+      </div>
+      <div class="full-image-row-for">
+        <div class="image-wrapper"><img class="image" src="https://c.animaapp.com/6BBlzofc/img/image-1-1.png" /></div>
+      </div>
+      <div class="column-for-content-wrapper">
+        <div class="column-for-content">
+          <div class="text-2">BOOKING DETAILS</div>
+          <p class="p">Here is your booking details</p>
+          <div class="spacer-2"></div>
+        </div>
+      </div>
+      <div class="frame">
+        <div class="frame-2">
+          <div class="text-wrapper-2">Email</div>
+          <div class="text-wrapper-2">johndoe@gmail.com</div>
+        </div>
+        <div class="frame-3">
+          <div class="text-wrapper-3">Phone</div>
+          <div class="text-wrapper-4">0812456362782</div>
+        </div>
+        <div class="frame-4">
+          <div class="div-wrapper"><div class="text-wrapper-5">Service</div></div>
+          <div class="frame-5"><div class="text-wrapper-6">Rentals</div></div>
+        </div>
+        <div class="frame-4">
+          <div class="div-wrapper"><div class="text-wrapper-5">Departure</div></div>
+          <div class="frame-5"><div class="text-wrapper-7">Lagos</div></div>
+        </div>
+        <div class="frame-4">
+          <div class="div-wrapper"><div class="text-wrapper-5">Pickup Date</div></div>
+          <div class="frame-5"><div class="text-wrapper-8">2023-12-05</div></div>
+        </div>
+        <div class="frame-4">
+          <div class="div-wrapper"><div class="text-wrapper-5">Pickup Time</div></div>
+          <div class="frame-5"><div class="text-wrapper-9">12:30pm</div></div>
+        </div>
+        <div class="frame-4">
+          <div class="div-wrapper"><div class="text-wrapper-5">Destination</div></div>
+          <div class="frame-5"><div class="text-wrapper-10">Ibadan</div></div>
+        </div>
+        <div class="frame-4">
+          <div class="div-wrapper"><div class="text-wrapper-5">End Date</div></div>
+          <div class="frame-5"><div class="text-wrapper-8">2023-12-05</div></div>
+        </div>
+        <div class="frame-4">
+          <div class="div-wrapper"><div class="text-wrapper-5">Drop-off Time</div></div>
+          <div class="frame-5"><div class="text-wrapper-11">6:00pm</div></div>
+        </div>
+        <div class="frame-4">
+          <div class="div-wrapper"><div class="text-wrapper-5">Pickup Address</div></div>
+          <div class="frame-5"><div class="text-wrapper-12">6, franklin street</div></div>
+        </div>
+        <div class="frame-4">
+          <div class="div-wrapper"><div class="text-wrapper-5">Drop-off Address</div></div>
+          <div class="frame-5"><div class="text-wrapper-12">6, franklin street</div></div>
+        </div>
+        <div class="frame-4">
+          <div class="div-wrapper"><div class="text-wrapper-5">Fuel Option</div></div>
+          <div class="frame-5"><div class="text-wrapper-13">yes</div></div>
+        </div>
+        <div class="frame-4">
+          <div class="div-wrapper"><div class="text-wrapper-5">Price(with 2.5% discount)</div></div>
+          <div class="frame-5"><div class="text-wrapper-14">NGN 50,000</div></div>
+        </div>
+      </div>
+      <div class="title-subtitle">
+        <div class="column-for-content">
+          <p class="text-3">BOOK YOUR RIDE WITH ELS</p>
+          <p class="text-4">WITH THE PEOPLE WHO KNOW IT BEST</p>
+          <div class="spacer-3"></div>
+          <button class="button"><div class="learn-more">BOOK NOW</div></button>
+        </div>
+      </div>
+      <div class="footer-social-row">
+        <div class="column-for-content-2"><p class="text-5">©Copyright 2023 by ELS LUXUARY</p></div> <br>
+        <img class="img" src="https://c.animaapp.com/6BBlzofc/img/----column--for-content-elements--1.svg" />
+      </div>
+    </div>
+</body>
+
+</html>

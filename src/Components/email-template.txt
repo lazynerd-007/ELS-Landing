@@ -1,0 +1,63 @@
+<p style="font-size: 12pt; text-align: center;"><span style="text-decoration: underline;"><span style="font-size: 16pt;">Booking Details for&nbsp;<strong>{{from_name}}</strong>:</span></span></p>
+<p style="font-size: 12pt; text-align: center;">&nbsp;</p>
+<table style="border-collapse: collapse; width: 73.4591%; height: 246px; margin-left: auto; margin-right: auto;" border="1"><colgroup><col style="width: 24.4536%;"><col style="width: 75.5306%;"></colgroup>
+<tbody>
+<tr>
+<td><strong>Email</strong>:</td>
+<td><strong>&nbsp; &nbsp;</strong>{{email}}</td>
+</tr>
+<tr>
+<td><strong>Phone Number</strong>:</td>
+<td><strong>&nbsp; &nbsp;</strong>{{phoneNo}}</td>
+</tr>
+<tr>
+<td><strong>Service</strong>:</td>
+<td style="text-align: left;"><strong>&nbsp; &nbsp;</strong>{{service}}</td>
+</tr>
+<tr>
+<td><strong>Selected Car</strong>:</td>
+<td><strong>&nbsp; &nbsp;</strong>{{selectedCar}}</td>
+</tr>
+<tr>
+<td><strong>Departure</strong>:</td>
+<td><strong>&nbsp; &nbsp;</strong>{{departure}}</td>
+</tr>
+<tr>
+<td><strong>Pickup Date</strong>:</td>
+<td><strong>&nbsp; &nbsp;</strong>{{pickUpDate}}</td>
+</tr>
+<tr>
+<td><strong>Pickup Time</strong>:</td>
+<td><strong>&nbsp; &nbsp;</strong>{{pickUpTime}}</td>
+</tr>
+<tr>
+<td><strong>Destination</strong>:</td>
+<td><strong>&nbsp; &nbsp;</strong>{{destination}}</td>
+</tr>
+<tr>
+<td><strong>End Date</strong>:</td>
+<td><strong>&nbsp; &nbsp;</strong>{{endDate}}</td>
+</tr>
+<tr>
+<td><strong>Drop-off Time</strong>:</td>
+<td><strong>&nbsp; &nbsp;</strong>{{dropOffTime}}</td>
+</tr>
+<tr>
+<td><strong>Pickup Address:</strong></td>
+<td><strong>&nbsp; &nbsp;</strong>{{pickUpAddress}}</td>
+</tr>
+<tr>
+<td><strong>Drop-off Address:</strong></td>
+<td><strong>&nbsp; &nbsp;</strong>{{dropOffAddress}}</td>
+</tr>
+<tr>
+<td><strong>Fuel Option:</strong></td>
+<td><strong>&nbsp; &nbsp;</strong>{{fuelOption}}</td>
+</tr>
+<tr>
+<td><strong>Price (with 2.5% Discount):</strong></td>
+<td><strong>&nbsp; &nbsp;</strong>{{values.discountPrice}}</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 12pt; text-align: left;">Best wishes,<br><strong>ELS team</strong></p>
