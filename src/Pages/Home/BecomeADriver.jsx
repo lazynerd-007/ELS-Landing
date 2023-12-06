@@ -1,6 +1,6 @@
 import Driver from "../../assets/driver-o.png"
-import GooglePlay from "../../assets/GooglePlay.png"
-import AppStore from "../../assets/AppStore.png"
+import GooglePlay from "../../assets/google-play-badge-logo-svgrepo.png"
+import AppStore from "../../assets/download-on-the-app-store-svgrepo.png"
 
 
 const BecomeADriver = () => {
@@ -42,12 +42,12 @@ const BecomeADriver = () => {
                                 You’ll receive your earnings at the end of each week — no need to wait around for payday.
                             </p>
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-">
                             <h2 className="text-3xl font-semibold">
                                 Download on our app
                             </h2>
                             <span className="flex gap-4">
-                                <img src={GooglePlay} className="" alt="" />
+                                <img src={GooglePlay} className="" alt="Google Play badge" />
                                 <img src={AppStore} className="" alt="" />
                             </span>
                         </div>
