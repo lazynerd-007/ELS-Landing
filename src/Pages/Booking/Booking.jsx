@@ -6,6 +6,7 @@ import emailjs from '@emailjs/browser';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ColorBlocks from "../../assets/color blocks.png"
+import { BookingModal } from './Modal';
 
 const animationConfiguration = {
     initial: { opacity: 0 },
@@ -23,6 +24,8 @@ const Booking = () => {
     const [fuelOption, setFuelOption] = useState('');
     const [pickUpTime, setPickupTime] = useState('');
     const [dropOffTime, setDropOffTime] = useState('');
+    const [discountedPrice, setDiscountedPrice] = useState('');
+    const [openModal, setOpenModal] = useState(false);
 
     const [values, setValues] = useState({
         from_name: '',
@@ -42,24 +45,25 @@ const Booking = () => {
         discountPrice: '',
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Check if any of the fields are empty
-        if (!values.from_name || !values.email || !values.phoneNo)
+        // if (!values.from_name || !values.email || !values.phoneNo)
         // || !values.service || !values.selectedCar || !values.departure
         // || !values.pickUpDate || !values.pickUpTime || !values.destination
         // || !values.endDate || !values.dropOffTime || !values.pickUpAddress
         // || !values.fuelOption)
         // Display an error toast
-        {
-            toast.error('Please fill out all fields');
-            return;
-        }
+        // {
+        //     toast.error('Please fill out all fields');
+        //     return;
+        // }
 
         // Now 'values' contains the current form data
         console.log('Form values:', values);
 
+        // Set the discounted price in the form values
         const priceInfo = calculatePrice();
 
         if (typeof priceInfo === 'string') {
@@ -68,46 +72,51 @@ const Booking = () => {
             return;
         }
 
-        // Set the discounted price in the form values
         const discountedPrice = priceInfo.discounted;
-        setValues((prevValues) => ({
-            ...prevValues,
-            discountPrice: discountedPrice,
-        }));
 
-
+        // Set the discounted price in the state
+        setDiscountedPrice(discountedPrice);
 
         // Perform your emailjs.send() with the 'values' object
-        emailjs.send('service_u6jb8rw', 'template_ffruusu', values, 'MiHjFMb3Hhwh8R9De')
-            .then((response) => {
-                console.log('Email sent successfully:', response);
-                // Display a success toast
-                toast.success('Message sent successfully, Expect a response within 24hours');
-            })
-            .catch((error) => {
-                console.error('Error sending email:', error);
-                // Display an error toast
-                toast.error('Error sending email');
-            });
+        try {
+            // Use await to ensure that setDiscountedPrice is completed before continuing
+            await new Promise(resolve => setTimeout(resolve, 0));
+
+            // Perform your emailjs.send() with the 'values' object
+            const emailResponse = await emailjs.send('service_u6jb8rw', 'template_ffruusu', {
+                ...values,
+                discountPrice: discountedPrice,
+            }, 'MiHjFMb3Hhwh8R9De');
+
+            console.log('Email sent successfully:', emailResponse);
+
+            // Display the modal only if the email was sent successfully
+            setOpenModal(true);
+
+        } catch (error) {
+            console.error('Error sending email:', error);
+            // Display an error toast
+            toast.error('Error sending email');
+        }
 
         // Reset the form after submission
-        setValues({
-            from_name: '',
-            email: '',
-            phoneNo: '',
-            service: '',
-            selectedCar: '',
-            departure: '',
-            pickUpDate: '',
-            pickUpTime: '',
-            destination: '',
-            endDate: '',
-            dropOffTime: '',
-            pickUpAddress: '',
-            dropOffAddress: '',
-            fuelOption: '',
-            discountPrice: '',
-        });
+        // setValues({
+        //     from_name: '',
+        //     email: '',
+        //     phoneNo: '',
+        //     service: '',
+        //     selectedCar: '',
+        //     departure: '',
+        //     pickUpDate: '',
+        //     pickUpTime: '',
+        //     destination: '',
+        //     endDate: '',
+        //     dropOffTime: '',
+        //     pickUpAddress: '',
+        //     dropOffAddress: '',
+        //     fuelOption: '',
+        //     discountPrice: '',
+        // });
     };
 
     const handleInputChange = (e) => {
@@ -148,7 +157,7 @@ const Booking = () => {
         setService(value);
         setSelectedCar(''); // Reset selectedCar when changing service
         setFuelOption(''); // Reset fuelOption when changing service
-        console.log('Selected service:', value);
+        // console.log('Selected service:', value);
         setValues({
             ...values,
             service: value,
@@ -160,7 +169,7 @@ const Booking = () => {
     const handleCarChange = (event) => {
         const value = event.target.value;
         setSelectedCar(value);
-        console.log('Selected car:', value); // Use 'value' instead of 'selectedCar'
+        // console.log('Selected car:', value);
         setValues({
             ...values,
             selectedCar: value,
@@ -171,7 +180,7 @@ const Booking = () => {
     const handlePickupTimeChange = (event) => {
         const value = event.target.value;
         setPickupTime(value);
-        console.log('Pickup Time:', value); // Use 'value' instead of 'pickUpTime'
+        // console.log('Pickup Time:', value);
         setValues({
             ...values,
             pickUpTime: value,
@@ -181,7 +190,7 @@ const Booking = () => {
     const handleDropOffTimeChange = (event) => {
         const value = event.target.value;
         setDropOffTime(value);
-        console.log('Dropoff Time:', value); // Use 'value' instead of 'dropOffTime'
+        // console.log('Dropoff Time:', value);
         setValues({
             ...values,
             dropOffTime: value,
@@ -191,7 +200,7 @@ const Booking = () => {
     const handleFuelOptionChange = (event) => {
         const value = event.target.value;
         setFuelOption(value);
-        console.log('Fuel Option:', value); // Use 'value' instead of 'fuelOption'
+        // console.log('Fuel Option:', value);
         setValues({
             ...values,
             fuelOption: value,
@@ -231,6 +240,7 @@ const Booking = () => {
             transition={{ duration: 1.5 }}
         >
             <ToastContainer />
+            <BookingModal openModal={openModal} onClose={() => setOpenModal(false)} values={values} />
 
             <section className="bg-[#0C0C0C] tablet:bg-hero-bg text-white pt-20 laptop:pt-28">
                 <div className="pt- min-h-screen laptop:px-12 tablet:px-8 px-4">
@@ -492,8 +502,8 @@ const Booking = () => {
                                                         <p className='text-green-500 mt-2'>
                                                             {`₦${calculatePrice().original}`}
                                                         </p>
-                                                        {/* Hidden Paragraph for Discounted Price */}
-                                                        <p id='discountPrice' name="discountPrice" className='invisible'>
+                                                        {/* Display the discounted price directly from the state */}
+                                                        <p className='text-green-500 mt-2'>
                                                             {`₦${calculatePrice().discounted}`}
                                                         </p>
                                                     </>
