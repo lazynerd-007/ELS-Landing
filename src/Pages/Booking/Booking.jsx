@@ -174,14 +174,20 @@ const Booking = () => {
     };
 
     const handleCarChange = (event) => {
-        const value = event.target.value;
-        setSelectedCar(value);
-        // console.log('Selected car:', value);
+        const selectedCarId = event.target.value;
+        setSelectedCar(selectedCarId);
+
+        // Find the corresponding car object from carList
+        const selectedCarObject = carList.find((car) => car.id === parseInt(selectedCarId));
+        console.log('Selected car:', selectedCarId);
+        // Set the car name in the values state
         setValues({
             ...values,
-            selectedCar: value,
+            selectedCar: selectedCarObject ? selectedCarObject.name : '',
         });
     };
+
+
 
 
     const handlePickupTimeChange = (event) => {
