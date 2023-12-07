@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { DatePicker, Space } from 'antd';
+import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import { carList, Times } from './content';
 import emailjs from '@emailjs/browser';
@@ -380,6 +381,7 @@ const Booking = () => {
                                                     <DatePicker
                                                         onChange={(date, dateString) => handleInputChange({ target: { name: 'pickUpDate', value: dateString } })}
                                                         className='w-full text-[#A6A6A6]'
+                                                        disabledDate={(current) => current && current < dayjs().startOf('day')}
                                                     // style={{
                                                     //     backgroundColor: 'transparent',
                                                     //     color: 'white',
@@ -430,6 +432,7 @@ const Booking = () => {
                                                     <DatePicker
                                                         onChange={(date, dateString) => handleInputChange({ target: { name: 'endDate', value: dateString } })}
                                                         className='w-full text-[#A6A6A6]'
+                                                        disabledDate={(current) => current && current < dayjs().startOf('day')}
                                                     />
                                                 </Space>
                                                 {/* className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
