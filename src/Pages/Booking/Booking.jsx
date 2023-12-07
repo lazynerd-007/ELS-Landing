@@ -102,30 +102,35 @@ const Booking = () => {
     };
 
     const handleCloseModal = () => {
-        // Clear the form values
-        setValues({
-            from_name: '',
-            email: '',
-            phoneNo: '',
-            service: '',
-            selectedCar: '',
-            departure: '',
-            pickUpDate: '',
-            pickUpTime: '',
-            destination: '',
-            endDate: '',
-            dropOffTime: '',
-            pickUpAddress: '',
-            dropOffAddress: '',
-            fuelOption: '',
-            discountPrice: '',
-        });
+        // Scroll to the top of the page
+        window.scrollTo(0, 0);
+
+        // Clear the form values (if needed)
+        // setValues({
+        //     from_name: '',
+        //     email: '',
+        //     phoneNo: '',
+        //     service: '',
+        //     selectedCar: '',
+        //     departure: '',
+        //     pickUpDate: '',
+        //     pickUpTime: '',
+        //     destination: '',
+        //     endDate: '',
+        //     dropOffTime: '',
+        //     pickUpAddress: '',
+        //     dropOffAddress: '',
+        //     fuelOption: '',
+        //     discountPrice: '',
+        // });
+
         // Close the modal
         setOpenModal(false);
 
         // Or Refresh the page
-        // window.location.reload();
+        window.location.reload();
     };
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -516,11 +521,14 @@ const Booking = () => {
                                                 </label>
                                                 {selectedCar && fuelOption && (
                                                     <>
-                                                        <p className='text-green-500 mt-2'>
+                                                        <p className='text-[#FEBB1B] mt-2'>
                                                             {`₦${calculatePrice().original}`}
                                                         </p>
                                                         {/* Display the discounted price directly from the state */}
-                                                        <p className='text-green-500 mt-2'>
+                                                        <label className="block mt-2 mb-2 text-sm text-[#E5E7E8] capitalize">
+                                                            With 2.5% Discount:
+                                                        </label>
+                                                        <p className='text-[#FEBB1B] mt-2'>
                                                             {`₦${calculatePrice().discounted}`}
                                                         </p>
                                                     </>
