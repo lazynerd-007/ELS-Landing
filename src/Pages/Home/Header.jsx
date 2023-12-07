@@ -1,9 +1,7 @@
 import Sedan from "../../assets/sedan.png"
 import SUVs from "../../assets/suv.png"
 import Vans from "../../assets/van.png"
-// import Helicopter from "../../assets/helicopterr.png"
 import ColorBlocks from "../../assets/color blocks.png"
-// import Bentley from "../../assets/hero-bg.png"
 import { Link } from "react-router-dom"
 import Video from "../../assets/ELS.mp4"
 
