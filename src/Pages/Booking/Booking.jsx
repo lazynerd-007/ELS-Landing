@@ -50,16 +50,16 @@ const Booking = () => {
         e.preventDefault();
 
         // Check if any of the fields are empty
-        // if (!values.from_name || !values.email || !values.phoneNo)
-        // || !values.service || !values.selectedCar || !values.departure
-        // || !values.pickUpDate || !values.pickUpTime || !values.destination
-        // || !values.endDate || !values.dropOffTime || !values.pickUpAddress
-        // || !values.fuelOption)
+        if (!values.from_name || !values.email || !values.phoneNo
+            || !values.service || !values.selectedCar || !values.departure
+            || !values.pickUpDate || !values.pickUpTime || !values.destination
+            || !values.endDate || !values.dropOffTime || !values.pickUpAddress
+            || !values.fuelOption)
         // Display an error toast
-        // {
-        //     toast.error('Please fill out all fields');
-        //     return;
-        // }
+        {
+            toast.error('Please fill out all fields');
+            return;
+        }
 
         // Now 'values' contains the current form data
         console.log('Form values:', values);
@@ -102,9 +102,6 @@ const Booking = () => {
     };
 
     const handleCloseModal = () => {
-        // Scroll to the top of the page
-        window.scrollTo(0, 0);
-
         // Clear the form values (if needed)
         // setValues({
         //     from_name: '',
@@ -126,6 +123,9 @@ const Booking = () => {
 
         // Close the modal
         setOpenModal(false);
+
+        // Scroll to the top of the page
+        // window.scrollTo(0, 0);
 
         // Or Refresh the page
         window.location.reload();
