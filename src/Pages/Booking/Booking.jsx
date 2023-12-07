@@ -256,7 +256,7 @@ const Booking = () => {
             <BookingModal openModal={openModal} onClose={handleCloseModal} values={values} />
 
 
-            <section className="bg-[#0C0C0C] tablet:bg-hero-bg text-white pt-20 laptop:pt-28">
+            <section className="bg-[#0C0C0C] tablet:bg-hero-bg bg-cover bg-center text-white pt-20 laptop:pt-28">
                 <div className="pt- min-h-screen laptop:px-12 tablet:px-8 px-4">
                     <div className="flex flex-col min-h-screen">
                         <div className="container flex flex-col flex-1 py-12 mx-auto">
