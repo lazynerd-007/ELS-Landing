@@ -5,11 +5,11 @@ const FAQs = () => {
         <section id="Help">
             <div className='pt-20 space-y-8 px-4 tablet:px-8 laptop:px-12'>
                 <div>
-                    <h1 className='text-[3rem] font-black leading-[3.6rem]'>
+                    <h1 className='text-4xl tablet:text-5xl laptop:text-[3.5rem] tracking-tight leading-snug font-black mb-2'>
                         Frequently Asked Questions
                     </h1>
-                    <p className='text-[#616161] text-xl'>
-                        If you have any further question please <Link to="/contact" className='link link-hover text-xl text-[#FEBB1B]'> contact us</Link>
+                    <p className='text-[#616161] tablet:text-xl text-base'>
+                        If you have any further question please <Link to="/contact" className='link link-hover tablet:text-xl text-base text-[#FEBB1B]'> contact us</Link>
                     </p>
                 </div>
 
@@ -18,7 +18,7 @@ const FAQs = () => {
                         <summary
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
-                            <h2 className="font-medium text-xl">
+                            <h2 className="font-medium tablet:text-xl text-base">
                                 What sets ELS luxury car apart from regular cars?
                             </h2>
                         </summary>
@@ -35,7 +35,7 @@ const FAQs = () => {
                         <summary
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
-                            <h2 className="font-medium text-xl">
+                            <h2 className="font-medium tablet:text-xl text-base">
                                 What are the key features that define ELS luxury car?
                             </h2>
                         </summary>
@@ -51,7 +51,7 @@ const FAQs = () => {
                         <summary
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
-                            <h2 className="font-medium text-xl">
+                            <h2 className="font-medium tablet:text-xl text-base">
                                 Why you should choose ELS luxury car over regular one?
                             </h2>
                         </summary>
@@ -69,7 +69,7 @@ const FAQs = () => {
                         <summary
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
-                            <h2 className="font-medium text-xl">
+                            <h2 className="font-medium tablet:text-xl text-base">
                                 Do ELS luxury cars have better safety features?
                             </h2>
                         </summary>

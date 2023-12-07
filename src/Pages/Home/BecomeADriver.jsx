@@ -7,7 +7,7 @@ const BecomeADriver = () => {
     return (
         <section id="Driver">
             <div className='pt-20 px-4 tablet:px-8 laptop:px-12'>
-                <h1 className='text-[3rem] font-black'>
+                <h1 className='text-4xl tablet:text-5xl laptop:text-[3.5rem] tracking-tight leading-snug font-black mb-6'>
                     Become A Driver And Chauffeur
                 </h1>
 
@@ -19,7 +19,7 @@ const BecomeADriver = () => {
                     <div className="flex-1 space-y-10 items-center mt-10 laptop:mt-0">
                         {/* laptop:max-w-[24rem] */}
                         <div className="space-y-2">
-                            <h2 className="text-3xl font-semibold">
+                            <h2 className="tablet:text-3xl text-xl font-semibold">
                                 Set your schedule
                             </h2>
                             <p className="text-base text-[#616161]">
@@ -27,7 +27,7 @@ const BecomeADriver = () => {
                             </p>
                         </div>
                         <div className="space-y-2">
-                            <h2 className="text-3xl font-semibold">
+                            <h2 className="tablet:text-3xl text-xl font-semibold">
                                 Drive more, earn more
                             </h2>
                             <p className="text-base text-[#616161]">
@@ -35,7 +35,7 @@ const BecomeADriver = () => {
                             </p>
                         </div>
                         <div className="space-y-2">
-                            <h2 className="text-3xl font-semibold">
+                            <h2 className="tablet:text-3xl text-xl font-semibold">
                                 Get paid each daily
                             </h2>
                             <p className="text-base text-[#616161]">
@@ -43,7 +43,7 @@ const BecomeADriver = () => {
                             </p>
                         </div>
                         <div className="space-y-">
-                            <h2 className="text-3xl font-semibold">
+                            <h2 className="tablet:text-3xl text-xl font-semibold">
                                 Download on our app
                             </h2>
                             <span className="flex gap-4">

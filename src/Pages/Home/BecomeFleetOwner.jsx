@@ -19,15 +19,15 @@ const BecomeFleetOwner = () => {
                 </div>
 
                 <div className="grid laptop:grid-cols-4 tablet:grid-cols-2 grid-cols-1 gap-10">
-                    <img src={Car1} className="w-fit mx-auto" alt="car-1" />
-                    <img src={Car2} className="w-fit mx-auto" alt="car-2" />
-                    <img src={Bus} className="w-fit mx-auto" alt="bus" />
-                    <img src={Car3} className="w-fit mx-auto" alt="car-3" />
+                    <img src={Car1} className="w-fit mx-auto opacity-60" alt="car-1" />
+                    <img src={Car2} className="w-fit mx-auto opacity-60" alt="car-2" />
+                    <img src={Bus} className="w-fit mx-auto opacity-60" alt="bus" />
+                    <img src={Car3} className="w-fit mx-auto opacity-60" alt="car-3" />
                 </div>
 
                 <div className="grid laptop:grid-cols-3 gap-8 tablet:grid-cols-2 grid-cols-1">
                     <div className="space-y-2">
-                        <h2 className="text-3xl font-semibold">
+                        <h2 className="tablet:text-3xl text-xl font-semibold">
                             Boost your earnings
                         </h2>
                         <p className="text-base text-[#616161]">
@@ -35,7 +35,7 @@ const BecomeFleetOwner = () => {
                         </p>
                     </div>
                     <div className="space-y-2">
-                        <h2 className="text-3xl font-semibold">
+                        <h2 className="tablet:text-3xl text-xl font-semibold">
                             Manage your assets
                         </h2>
                         <p className="text-base text-[#616161]">
@@ -43,7 +43,7 @@ const BecomeFleetOwner = () => {
                         </p>
                     </div>
                     <div className="space-y-2">
-                        <h2 className="text-3xl font-semibold">
+                        <h2 className="tablet:text-3xl text-xl font-semibold">
                             Keep track of performance
                         </h2>
                         <p className="text-base text-[#616161]">
