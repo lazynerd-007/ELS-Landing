@@ -19,7 +19,7 @@ export const carList = [
         name: 'TOYOTA COROLLA 2017 - 2018',
         rentalAvailable: false,
         pickupAvailable: true,
-        prices: { rentalWithoutFuel: 150, rentalWithFuel: 200, pickupdropOff: 25205.58, pickupWithFuel: 37808.36 }
+        prices: { pickupdropOff: 25205.58, pickupWithFuel: 37808.36 }
     },
     {
         id: 3,
@@ -33,14 +33,14 @@ export const carList = [
         name: 'TOYOTA HIACE 2018',
         rentalAvailable: false,
         pickupAvailable: true,
-        prices: { rentalWithoutFuel: 150, rentalWithFuel: 200, pickupdropOff: 44268.79, pickupWithFuel: 66403.18 }
+        prices: { pickupdropOff: 44268.79, pickupWithFuel: 66403.18 }
     },
     {
         id: 5,
         name: 'TOYOTA COASTER',
         rentalAvailable: false,
         pickupAvailable: true,
-        prices: { rentalWithoutFuel: 150, rentalWithFuel: 200, pickupdropOff: 67646.77, pickupWithFuel: 101470.16 }
+        prices: { pickupdropOff: 67646.77, pickupWithFuel: 101470.16 }
     },
     {
         id: 6,
@@ -68,7 +68,7 @@ export const carList = [
         name: 'TOYOTA LANDCRUISER 2018',
         rentalAvailable: true,
         pickupAvailable: true,
-        prices: { pickupdropOff: 73023.38, pickupWithFuel: 109535.07 }
+        prices: { rentalWithoutFuel: 99503.70, rentalWithFuel: 114535.07, pickupdropOff: 73023.38, pickupWithFuel: 109535.07 }
     },
     {
         id: 10,
@@ -89,13 +89,13 @@ export const carList = [
         name: 'TOYOTA FORTUNER 2019',
         rentalAvailable: true,
         pickupAvailable: false,
-        prices: { pickupdropOff: 82955.34, pickupWithFuel: 97986.71 }
+        prices: { rentalWithoutFuel: 82955.34, rentalWithFuel: 97986.71 }
     },
     {
         id: 13,
         name: 'TOYOTA PRADO VX 2018',
         rentalAvailable: true,
         pickupAvailable: false,
-        prices: { pickupdropOff: 97503.70, pickupWithFuel: 112535.07 }
+        prices: { rentalWithoutFuel: 97503.70, rentalWithFuel: 112535.07 }
     },
 ];
