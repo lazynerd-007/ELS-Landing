@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 const FAQs = () => {
     return (
         <section id="Help">
-            <div className='pt-20 space-y-8 px-4 tablet:px-8 laptop:px-12'>
+            <div className='pt-20 pb-10 space-y-8 px-4 tablet:px-8 laptop:px-12'>
                 <div>
                     <h1 className='text-4xl tablet:text-5xl laptop:text-[3.5rem] tracking-tight leading-snug font-black mb-2'>
                         Frequently Asked Questions

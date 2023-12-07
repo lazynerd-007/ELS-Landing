@@ -7,7 +7,7 @@ import Bus from "../../assets/Bus1.png"
 const BecomeFleetOwner = () => {
     return (
         <section id="FleetOwner">
-            <div className='pt-20 space-y-10 px-4 tablet:px-8 laptop:px-12'>
+            <div className='pt-20 pb-10 space-y-10 px-4 tablet:px-8 laptop:px-12'>
                 <div className='laptop:flex justify-between gap-4'>
                     <h1 className='text-4xl tablet:text-5xl laptop:text-[3.5rem] tracking-tight leading-snug font-black'>
                         Become A Fleet Owner And Grow <br />

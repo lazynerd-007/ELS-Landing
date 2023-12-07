@@ -6,7 +6,7 @@ import AppStore from "../../assets/download-on-the-app-store-svgrepo.png"
 const BecomeADriver = () => {
     return (
         <section id="Driver">
-            <div className='pt-20 px-4 tablet:px-8 laptop:px-12'>
+            <div className='pt-20 pb-10 px-4 tablet:px-8 laptop:px-12'>
                 <h1 className='text-4xl tablet:text-5xl laptop:text-[3.5rem] tracking-tight leading-snug font-black mb-6'>
                     Become A Driver And Chauffeur
                 </h1>
