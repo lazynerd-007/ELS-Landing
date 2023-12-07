@@ -1,4 +1,4 @@
-import Sedan from "../../assets/sedan.png"
+import Sedan from "../../assets/sedann.png"
 import SUVs from "../../assets/suv.png"
 import Vans from "../../assets/van.png"
 import ColorBlocks from "../../assets/color blocks.png"
