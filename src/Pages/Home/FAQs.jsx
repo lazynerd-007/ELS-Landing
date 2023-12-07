@@ -18,13 +18,16 @@ const FAQs = () => {
                         <summary
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
-                            <h2 className="font-medium">
-                                Does ELS provide food in the vehicle ?
+                            <h2 className="font-medium text-xl">
+                                What sets ELS luxury car apart from regular cars?
                             </h2>
                         </summary>
 
-                        <p className="mt-4 px-2 leading-relaxed text-[#D9D9D9]">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquam bibendum metus, sit amet fermentum purus sollicitudin vel. Pellentesque vitae lacinia justo. Cras nec arcu nec leo dignissim tincidunt. Sed in tellus non libero varius pharetra. Fusce et nisl vitae est suscipit vulputate eu at mi. Morbi eget massa ac justo condimentum feugiat. Proin vel nunc eu elit varius gravida.
+                        <p className="mt-4 px-2 leading-relaxed text-sm text-[#D9D9D9]">
+                            ELS Luxury cars typically offer superior comfort,
+                            advanced technology, high-quality materials,
+                            and exceptional performance. We often feature cutting-edge
+                            safety features and boast a higher level of craftsmanship.
                         </p>
                     </details>
 
@@ -32,40 +35,33 @@ const FAQs = () => {
                         <summary
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
-                            <h2 className="font-medium">
-                                Does ELS provide food in the vehicle ?
+                            <h2 className="font-medium text-xl">
+                                What are the key features that define ELS luxury car?
                             </h2>
                         </summary>
 
-                        <p className="mt-4 px-2 leading-relaxed text-[#D9D9D9]">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquam bibendum metus, sit amet fermentum purus sollicitudin vel. Pellentesque vitae lacinia justo. Cras nec arcu nec leo dignissim tincidunt. Sed in tellus non libero varius pharetra. Fusce et nisl vitae est suscipit vulputate eu at mi. Morbi eget massa ac justo condimentum feugiat. Proin vel nunc eu elit varius gravida.
+                        <p className="mt-4 px-2 leading-relaxed text-sm text-[#D9D9D9]">
+                            ELS Luxury cars include features such as premium leather
+                            upholstery, advanced infotainment systems, high-end audio
+                            systems, adaptive cruise control, autonomous driving
+                            capabilities, and top-notch build quality.
                         </p>
                     </details>
                     <details className="group [&_summary::-webkit-details-marker]:hidden">
                         <summary
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
-                            <h2 className="font-medium">
-                                Does ELS provide food in the vehicle ?
+                            <h2 className="font-medium text-xl">
+                                Why you should choose ELS luxury car over regular one?
                             </h2>
                         </summary>
 
-                        <p className="mt-4 px-2 leading-relaxed text-[#D9D9D9]">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquam bibendum metus, sit amet fermentum purus sollicitudin vel. Pellentesque vitae lacinia justo. Cras nec arcu nec leo dignissim tincidunt. Sed in tellus non libero varius pharetra. Fusce et nisl vitae est suscipit vulputate eu at mi. Morbi eget massa ac justo condimentum feugiat. Proin vel nunc eu elit varius gravida.
-                        </p>
-                    </details>
-
-                    <details className="group [&_summary::-webkit-details-marker]:hidden">
-                        <summary
-                            className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
-                        >
-                            <h2 className="font-medium">
-                                Does ELS provide food in the vehicle ?
-                            </h2>
-                        </summary>
-
-                        <p className="mt-4 px-2 leading-relaxed text-[#D9D9D9]">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquam bibendum metus, sit amet fermentum purus sollicitudin vel. Pellentesque vitae lacinia justo. Cras nec arcu nec leo dignissim tincidunt. Sed in tellus non libero varius pharetra. Fusce et nisl vitae est suscipit vulputate eu at mi. Morbi eget massa ac justo condimentum feugiat. Proin vel nunc eu elit varius gravida.
+                        <p className="mt-4 px-2 leading-relaxed text-sm text-[#D9D9D9]">
+                            ELS Luxury cars offer an unparalleled driving experience,
+                            combining advanced technology, superior comfort, and
+                            exquisite craftsmanship. They provide a status symbol
+                            and often come with cutting-edge features that enhance
+                            both performance and aesthetics.
                         </p>
                     </details>
 
@@ -73,27 +69,17 @@ const FAQs = () => {
                         <summary
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
-                            <h2 className="font-medium">
-                                Does ELS provide food in the vehicle ?
+                            <h2 className="font-medium text-xl">
+                                Do ELS luxury cars have better safety features?
                             </h2>
                         </summary>
 
-                        <p className="mt-4 px-2 leading-relaxed text-[#D9D9D9]">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquam bibendum metus, sit amet fermentum purus sollicitudin vel. Pellentesque vitae lacinia justo. Cras nec arcu nec leo dignissim tincidunt. Sed in tellus non libero varius pharetra. Fusce et nisl vitae est suscipit vulputate eu at mi. Morbi eget massa ac justo condimentum feugiat. Proin vel nunc eu elit varius gravida.
-                        </p>
-                    </details>
-
-                    <details className="group [&_summary::-webkit-details-marker]:hidden">
-                        <summary
-                            className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
-                        >
-                            <h2 className="font-medium">
-                                Does ELS provide food in the vehicle ?
-                            </h2>
-                        </summary>
-
-                        <p className="mt-4 px-2 leading-relaxed text-[#D9D9D9]">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque aliquam bibendum metus, sit amet fermentum purus sollicitudin vel. Pellentesque vitae lacinia justo. Cras nec arcu nec leo dignissim tincidunt. Sed in tellus non libero varius pharetra. Fusce et nisl vitae est suscipit vulputate eu at mi. Morbi eget massa ac justo condimentum feugiat. Proin vel nunc eu elit varius gravida.
+                        <p className="mt-4 px-2 leading-relaxed text-sm text-[#D9D9D9]">
+                            Absolutely. ELS Luxury cars prioritize safety with
+                            features such as adaptive cruise control, lane-keeping
+                            assistance, automatic emergency braking, and advanced
+                            sensor systems. These technologies aim to enhance overall
+                            safety for both drivers and passengers.
                         </p>
                     </details>
 
