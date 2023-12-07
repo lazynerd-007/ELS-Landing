@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
 import { NavbarData } from "./NavbarData";
 import NavDropdown from "./NavDropdown";
+import Logo from "../../assets/logo.webp"
 
 
 const Navbar = () => {
 
     return (
         <div className="">
-            <div className="navbar bg-opacity-60 backdrop-blur-sm z-50 fixed top-0 bg-transparent text-white py-4 laptop:px-12 tablet:px-8 px-4">
+            <div className="navbar bg-opacity-60 backdrop-blur-sm z-50 fixed top-0 bg-transparent text-white py-2 laptop:px-12 tablet:px-8 px-4">
                 <div className="navbar-start">
-                    <Link to="/" className="text-4xl font-black">
-                        LOGO
+                    <Link to="/" className="">
+                        <img src={Logo} className="w-1/2" alt="ELS Logo" />
                     </Link>
                 </div>
                 <div className="navbar-end hidden laptop:flex">
