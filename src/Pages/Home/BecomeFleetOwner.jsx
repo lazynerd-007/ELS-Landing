@@ -1,11 +1,15 @@
-import Fleet from "../../assets/fleet-o.png"
+import Car1 from "../../assets/Car1.png"
+import Car2 from "../../assets/Car2.png"
+import Car3 from "../../assets/Car3.png"
+import Bus from "../../assets/Bus1.png"
+
 
 const BecomeFleetOwner = () => {
     return (
         <section id="FleetOwner">
-            <div className='pt-20 space-y-8 px-4 tablet:px-8 laptop:px-12'>
+            <div className='pt-20 space-y-10 px-4 tablet:px-8 laptop:px-12'>
                 <div className='laptop:flex justify-between gap-4'>
-                    <h1 className='text-[3rem] font-black leading-[3.6rem]'>
+                    <h1 className='text-4xl tablet:text-5xl laptop:text-[3.5rem] tracking-tight leading-snug font-black'>
                         Become A Fleet Owner And Grow <br />
                         Your Business
                     </h1>
@@ -14,7 +18,12 @@ const BecomeFleetOwner = () => {
                     </button>
                 </div>
 
-                <img src={Fleet} className="w-full" alt="fleet" />
+                <div className="grid laptop:grid-cols-4 tablet:grid-cols-2 grid-cols-1 gap-10">
+                    <img src={Car1} className="w-fit mx-auto" alt="car-1" />
+                    <img src={Car2} className="w-fit mx-auto" alt="car-2" />
+                    <img src={Bus} className="w-fit mx-auto" alt="bus" />
+                    <img src={Car3} className="w-fit mx-auto" alt="car-3" />
+                </div>
 
                 <div className="grid laptop:grid-cols-3 gap-8 tablet:grid-cols-2 grid-cols-1">
                     <div className="space-y-2">
