@@ -12,17 +12,17 @@ const Footer = () => {
                 <div className="w-full laptop:flex space-y-2 laptop:space-y-0 justify-between py-2 border-y border-white/20">
                     <div className="flex laptop:gap-8 gap-2 justify-center">
                         <p>
-                            Follow Us
+                            Follow Us:
                         </p>
-                        <p>
+                        <a className="link link-hover">
                             Facebook
-                        </p>
-                        <p>
+                        </a>
+                        <a className="link link-hover">
                             Twitter
-                        </p>
-                        <p>
+                        </a>
+                        <a className="link link-hover">
                             Instagram
-                        </p>
+                        </a>
                     </div>
                     <div className="flex justify-center text-center">
                         <p className="text-sm">
