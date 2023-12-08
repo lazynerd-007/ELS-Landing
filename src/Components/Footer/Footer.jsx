@@ -26,8 +26,7 @@ const Footer = () => {
                     </div>
                     <div className="flex justify-center text-center">
                         <p className="text-sm">
-                            © Copyright <span className="text-sm">{theDate}</span> by ELS. Design by <a className="text-[#FDB913] link link-hover text-sm">Temsdesgn</a> with love
-                            {/* All rights reserved */}
+                            © Copyright <span className="text-sm">{theDate}</span> <a className="text-[#FDB913] link link-hover text-sm">ELS Nigeria</a>. All rights reserved
                         </p>
                     </div>
                 </div>
