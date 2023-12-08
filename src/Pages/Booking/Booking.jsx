@@ -319,6 +319,12 @@ const Booking = () => {
 
                                 <div className="laptop:w-1/2 laptop:mx-6">
                                     <div className="w-full tablet:px-8 tablet:border-none border px-2 border-white/5 py-10 mx-auto overflow-hidden bg-[#0C0C0C]  shadow-2xl rounded-xl  laptop:max-w-xl">
+
+                                        <p className='mb-4 text-[#FEBB1B] laptop:hidden'>
+                                            Note: You have the option to reserve your
+                                            ride 24 hours before your scheduled departure or due date.
+                                        </p>
+
                                         <form onSubmit={handleSubmit}
                                             className="">
 
@@ -573,12 +579,9 @@ const Booking = () => {
                                         </form>
 
                                         {/* Rental conditions */}
-                                        <div className='bg-black laptop:hidden block mt-20 text-sm bg-opacity-60 py-2 px-4 '>
-                                            <p className='mt-4 text-[#FEBB1B]'>
-                                                Note: You have the option to reserve your
-                                                ride 24 hours before your scheduled departure or due date.
-                                            </p>
-                                            <h2 className='text-center mt-5 text-lg underline'>
+                                        <div className='bg-black laptop:hidden block mt-20 text-sm bg-opacity-60 py-6 px-4 '>
+
+                                            <h2 className='text-center text-lg underline'>
                                                 Rental conditions:
                                             </h2>
                                             <p className='tablet:flex justify-between'>
