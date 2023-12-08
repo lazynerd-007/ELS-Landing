@@ -574,7 +574,11 @@ const Booking = () => {
 
                                         {/* Rental conditions */}
                                         <div className='bg-black laptop:hidden block mt-20 text-sm bg-opacity-60 py-2 px-4 '>
-                                            <h2 className='text-center text-lg underline'>
+                                            <p className='mt-4 text-[#FEBB1B]'>
+                                                Note: You have the option to reserve your
+                                                ride 24 hours before your scheduled departure or due date.
+                                            </p>
+                                            <h2 className='text-center mt-5 text-lg underline'>
                                                 Rental conditions:
                                             </h2>
                                             <p className='tablet:flex justify-between'>
@@ -602,10 +606,6 @@ const Booking = () => {
                                                 Toll – pass/Parking Toll is excluded
                                             </p>
 
-                                            <p className='mt-4 text-[#FEBB1B]'>
-                                                Note: You have the option to reserve your
-                                                ride 24 hours before your scheduled departure or due date.
-                                            </p>
                                         </div>
 
                                     </div>
