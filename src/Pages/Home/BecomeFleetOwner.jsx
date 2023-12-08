@@ -19,10 +19,10 @@ const BecomeFleetOwner = () => {
                 </div>
 
                 <div className="grid laptop:grid-cols-4 tablet:grid-cols-2 grid-cols-1 gap-10">
-                    <img src={Car1} className="w-fit mx-auto opacity-60" alt="car-1" />
-                    <img src={Car2} className="w-fit mx-auto opacity-60" alt="car-2" />
-                    <img src={Bus} className="w-fit mx-auto opacity-60" alt="bus" />
-                    <img src={Car3} className="w-fit mx-auto opacity-60" alt="car-3" />
+                    <img src="https://cdn.carbuzz.com/gallery-images/1600/354000/100/354172.jpg" className="w-fit mx-auto opacity-60 rounded-xl" alt="car-3" />
+                    <img src="https://editorials.autotrader.ca/media/7265/2015-toyota-sienna-se-mb-01.jpg?anchor=center&mode=crop&width=1920&height=1080&rnd=131220183429700000" className="w-fit mx-auto opacity-60 rounded-xl" alt="TOYOTA SIENNA 2015" />
+                    <img src="https://www.motortrend.com/uploads/sites/5/2019/10/2019-Toyota-RAV4-XLE-front-three-quarter-in-motion-1.jpg" className="w-fit mx-auto opacity-60 rounded-xl" alt="toyota rav 4 2019" />
+                    <img src="https://static1.topspeedimages.com/wordpress/wp-content/uploads/jpg/201412/2015-2014-lexus-gx-460---.jpg" className="w-fit mx-auto opacity-60 rounded-xl" alt="LEXUS GX 460 2015" />
                 </div>
 
                 <div className="grid laptop:grid-cols-3 gap-8 tablet:grid-cols-2 grid-cols-1">
