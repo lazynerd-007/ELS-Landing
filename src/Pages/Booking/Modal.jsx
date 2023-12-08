@@ -4,7 +4,7 @@ import { Button, Modal } from 'flowbite-react';
 export const BookingModal = ({ openModal, onClose, values }) => {
 
     // Access and use form values
-    console.log(values);
+    // console.log(values);
 
     return (
         <>
