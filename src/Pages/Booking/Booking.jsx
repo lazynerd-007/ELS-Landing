@@ -34,10 +34,9 @@ const Booking = () => {
         phoneNo: '',
         service: '',
         selectedCar: '',
-        departure: '',
+        // departure: '',
         pickUpDate: '',
         pickUpTime: '',
-        destination: '',
         endDate: '',
         dropOffTime: '',
         pickUpAddress: '',
@@ -51,9 +50,9 @@ const Booking = () => {
 
         // Check if any of the fields are empty
         if (!values.from_name || !values.email || !values.phoneNo
-            || !values.service || !values.selectedCar || !values.departure
-            || !values.pickUpDate || !values.pickUpTime || !values.destination
-            || !values.endDate || !values.dropOffTime || !values.pickUpAddress
+            || !values.service || !values.selectedCar || !values.pickUpDate
+            || !values.pickUpTime || !values.endDate
+            || !values.dropOffTime || !values.pickUpAddress
             || !values.fuelOption)
         // Display an error toast
         {
@@ -62,7 +61,7 @@ const Booking = () => {
         }
 
         // Now 'values' contains the current form data
-        console.log('Form values:', values);
+        // console.log('Form values:', values);
 
         // Set the discounted price in the form values
         const priceInfo = calculatePrice();
@@ -112,7 +111,6 @@ const Booking = () => {
         //     departure: '',
         //     pickUpDate: '',
         //     pickUpTime: '',
-        //     destination: '',
         //     endDate: '',
         //     dropOffTime: '',
         //     pickUpAddress: '',
@@ -244,7 +242,7 @@ const Booking = () => {
 
         const originalPrice = car.prices[originalPriceKey];
         const discountedPrice = originalPrice - (originalPrice * 0.025);
-        console.log('Discounted Price:', discountedPrice)
+        // console.log('Discounted Price:', discountedPrice)
 
         return { original: originalPrice.toFixed(2), discounted: discountedPrice.toFixed(2) };
     };
@@ -282,7 +280,7 @@ const Booking = () => {
                                         </div>
 
                                         {/* Rental conditions */}
-                                        <div className='bg-black laptop:mt-28 mt-14 text-sm bg-opacity-60 py-2 px-4 '>
+                                        <div className='bg-black laptop:mt-28 laptop:block hidden mt-14 text-sm bg-opacity-60 py-2 px-4 '>
                                             <h2 className='text-center text-lg underline'>
                                                 Rental conditions:
                                             </h2>
@@ -309,6 +307,11 @@ const Booking = () => {
                                             </p>
                                             <p className=''>
                                                 Toll – pass/Parking Toll is excluded
+                                            </p>
+
+                                            <p className='mt-4 text-[#FEBB1B]'>
+                                                Note: You have the option to reserve your
+                                                ride 24 hours before your scheduled departure or due date.
                                             </p>
                                         </div>
                                     </div>
@@ -368,15 +371,9 @@ const Booking = () => {
                                                 <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
                                                     Departure
                                                 </label>
-                                                <input
-                                                    id="departure"
-                                                    name="departure"
-                                                    type="text"
-                                                    value={values.departure}
-                                                    onChange={handleInputChange}
-                                                    placeholder="State: Lagos"
-                                                    className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
-                                                />
+                                                <p className='text-[#FEBB1B] mt-2'>
+                                                    Lagos
+                                                </p>
                                             </div>
                                             <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
                                                 <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
@@ -414,20 +411,6 @@ const Booking = () => {
                                                         </option>
                                                     ))}
                                                 </select>
-                                            </div>
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Destination
-                                                </label>
-                                                <input
-                                                    id="destination"
-                                                    name="destination"
-                                                    type="text"
-                                                    value={values.destination}
-                                                    onChange={handleInputChange}
-                                                    placeholder="(Same as Departure)"
-                                                    className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
-                                                />
                                             </div>
                                             <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
                                                 <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
@@ -588,6 +571,43 @@ const Booking = () => {
                                                 </button>
                                             </div>
                                         </form>
+
+                                        {/* Rental conditions */}
+                                        <div className='bg-black laptop:hidden block mt-20 text-sm bg-opacity-60 py-2 px-4 '>
+                                            <h2 className='text-center text-lg underline'>
+                                                Rental conditions:
+                                            </h2>
+                                            <p className='tablet:flex justify-between'>
+                                                Please note that our working period is between 6am –6pm.
+                                            </p>
+                                            <p className='tablet:flex justify-between'>
+                                                - Normal Overtime Rate (7pm – 12 midnight)  <span>N2,000 per hour</span>
+                                            </p>
+                                            <p className='tablet:flex justify-between'>
+                                                - Abnormal Overtime Rate (12 midnight—6 am) <span>N2,500 per hour</span>
+                                            </p>
+                                            <p className='tablet:flex justify-between'>
+                                                - Weekend Allowance <span>N3,000 per day</span>
+                                            </p>
+                                            <p className='tablet:flex justify-between'>
+                                                - Public holiday allowance <span>N5,000 per day</span>
+                                            </p>
+                                            <p className='tablet:flex justify-between'>
+                                                - Travel Allowance <span>N4,000 per day</span>
+                                            </p>
+                                            <p className='tablet:flex justify-between'>
+                                                - Outstation allowance <span>N10,000 per night</span>
+                                            </p>
+                                            <p className=''>
+                                                Toll – pass/Parking Toll is excluded
+                                            </p>
+
+                                            <p className='mt-4 text-[#FEBB1B]'>
+                                                Note: You have the option to reserve your
+                                                ride 24 hours before your scheduled departure or due date.
+                                            </p>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
