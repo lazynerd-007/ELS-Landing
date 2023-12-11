@@ -70,16 +70,6 @@ const Header = () => {
                             LEXUS GX 460 2015
                         </p>
                     </span>
-                    <span className="hidden tablet:block">
-                        <img src={Vans} className='w-[13%]' alt='van' />
-                        <h2 className='text-xl font-semibold'>
-                            Toyota
-                        </h2>
-                        <p className='text-sm'>
-                            TOYOTA HIACE 2018, <br />
-                            TOYOTA COASTER
-                        </p>
-                    </span>
                 </div>
             </section>
         </div>
