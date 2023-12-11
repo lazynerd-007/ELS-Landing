@@ -17,31 +17,6 @@ const BecomeADriver = () => {
                     </div>
 
                     <div className="flex-1 space-y-10 items-center mt-10 laptop:mt-0">
-                        {/* laptop:max-w-[24rem] */}
-                        <div className="space-y-2">
-                            <h2 className="tablet:text-3xl text-xl font-semibold">
-                                Set your schedule
-                            </h2>
-                            <p className="text-base text-[#616161]">
-                                Our 150+ million riders will send you plenty of ride requests. When demand is high, you can earn even more
-                            </p>
-                        </div>
-                        <div className="space-y-2">
-                            <h2 className="tablet:text-3xl text-xl font-semibold">
-                                Drive more, earn more
-                            </h2>
-                            <p className="text-base text-[#616161]">
-                                Drive for as long and as often as you like. Weekdays; weekends; evenings — fit driving around your lifestyle.
-                            </p>
-                        </div>
-                        <div className="space-y-2">
-                            <h2 className="tablet:text-3xl text-xl font-semibold">
-                                Get paid each daily
-                            </h2>
-                            <p className="text-base text-[#616161]">
-                                You’ll receive your earnings at the end of each week — no need to wait around for payday.
-                            </p>
-                        </div>
                         <div className="space-y-">
                             <h2 className="tablet:text-3xl text-xl font-semibold">
                                 Download on our app
