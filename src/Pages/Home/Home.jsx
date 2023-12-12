@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import Header from './Header'
-import BecomeADriver from './BecomeADriver'
 import BecomeFleetOwner from './BecomeFleetOwner'
 import FAQs from './FAQs'
 
@@ -25,9 +24,6 @@ const HomePage = () => {
                 {/* py-10 laptop:px-12 tablet:px-5 px-4 */}
                 <div className='border-b border-[#D1D5DB]/20 w-full'>
                     <Header />
-                </div>
-                <div className='border-b border-[#D1D5DB]/20'>
-                    <BecomeADriver />
                 </div>
                 <div className='border-b border-[#D1D5DB]/20'>
                     <BecomeFleetOwner />

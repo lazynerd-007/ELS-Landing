@@ -7,11 +7,6 @@ export const NavbarData = [
   },
 
   {
-    title: "Become A Driver",
-    bookmark: "/#Driver",
-  },
-
-  {
     title: "Become A Fleet Owner",
     bookmark: "/#FleetOwner",
   },
