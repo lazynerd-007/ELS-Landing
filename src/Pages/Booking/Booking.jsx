@@ -389,7 +389,7 @@ const Booking = () => {
                                                     <DatePicker
                                                         onChange={(date, dateString) => handleInputChange({ target: { name: 'pickUpDate', value: dateString } })}
                                                         className='w-full text-[#A6A6A6]'
-                                                        disabledDate={(current) => current && current < dayjs().startOf('day')}
+                                                        disabledDate={(current) => current && current < dayjs().endOf('day')}
                                                     // style={{
                                                     //     backgroundColor: 'transparent',
                                                     //     color: 'white',
@@ -426,7 +426,7 @@ const Booking = () => {
                                                     <DatePicker
                                                         onChange={(date, dateString) => handleInputChange({ target: { name: 'endDate', value: dateString } })}
                                                         className='w-full text-[#A6A6A6]'
-                                                        disabledDate={(current) => current && current < dayjs().startOf('day')}
+                                                        disabledDate={(current) => current && current < dayjs().endOf('day')}
                                                     />
                                                 </Space>
                                                 {/* className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
