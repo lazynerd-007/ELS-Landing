@@ -12,8 +12,8 @@ const BecomeFleetOwner = () => {
                 </h1>
 
                 <div className="tablet:grid hidden laptop:grid-cols-4 tablet:grid-cols-2 grid-cols-1 gap-10">
-                    <img src="https://pbs.twimg.com/media/F7BVWetXYAAs7wK.jpg" className="w-fit mx-auto opacity-60 rounded-xl" alt="TOYOTA COROLLA 2017 - 2018" />
-                    <img src="https://www.victorylotus.com/imagetag/102/2/l/Used-2014-Toyota-RAV4-XLE.jpg" className="w-fit mx-auto opacity-60 rounded-xl" alt="RAV4 2014-2016" />
+                    <img src="https://img.sbtjapan.com/dealercarphoto/DTS4562/f.jpg?v=1691747082&imwidth=640" className="w-fit mx-auto opacity-60 rounded-xl" alt="TOYOTA FORTUNER 2019" />
+                    <img src="https://senda.us/autocraft/avisnew/images/veh_images/1611909034_image_13.jpeg" className="w-fit mx-auto opacity-60 rounded-xl" alt="TOYOTA LANDCRUISER 2018" />
                     <img src="https://senda.us/autocraft/avisnew/images/veh_images/16135224914image_13.jpeg" className="w-fit mx-auto opacity-60 rounded-xl" alt="TOYOTA PRADO 2018" />
                     <img src="https://wehco.media.clients.ellingtoncms.com/timesfreepress/img/photos/2014/02/28/0301_WEB_c_Test_Drive.JPG" className="w-fit mx-auto opacity-60 rounded-xl" alt="LEXUS GX 460 2015" />
                 </div>
