@@ -15,35 +15,35 @@ export const carList = [
         prices: { rentalWithoutFuel: 61091.62, rentalWithFuel: 74410.62, pickupdropOff: 46273.75, pickupWithFuel: 69410.62 }
     },
     {
-        id: 8,
+        id: 2,
         name: 'TOYOTA PRADO 2018',
         rentalAvailable: true,
         pickupAvailable: true,
         prices: { rentalWithoutFuel: 79955.34, rentalWithFuel: 94986.71, pickupdropOff: 59991.14, pickupWithFuel: 89986.71 }
     },
     {
-        id: 9,
+        id: 3,
         name: 'TOYOTA LANDCRUISER 2018',
         rentalAvailable: true,
         pickupAvailable: true,
         prices: { rentalWithoutFuel: 99503.70, rentalWithFuel: 114535.07, pickupdropOff: 73023.38, pickupWithFuel: 109535.07 }
     },
     {
-        id: 11,
+        id: 4,
         name: 'LEXUS GX 460 2015',
         rentalAvailable: true,
         pickupAvailable: true,
         prices: { rentalWithoutFuel: 74965.99, rentalWithFuel: 88284.99, pickupdropOff: 55523.33, pickupWithFuel: 83284.99 }
     },
     {
-        id: 12,
+        id: 5,
         name: 'TOYOTA FORTUNER 2019',
         rentalAvailable: true,
         pickupAvailable: false,
         prices: { rentalWithoutFuel: 82955.34, rentalWithFuel: 97986.71 }
     },
     {
-        id: 13,
+        id: 6,
         name: 'TOYOTA PRADO VX 2018',
         rentalAvailable: true,
         pickupAvailable: false,
