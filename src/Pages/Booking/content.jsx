@@ -12,28 +12,28 @@ export const carList = [
         name: 'TOYOTA PRADO 2014',
         rentalAvailable: true,
         pickupAvailable: true,
-        prices: { rentalWithoutFuel: 61091.62, rentalWithFuel: 74410.62, pickupdropOff: 46273.75, pickupWithFuel: 69410.62 }
+        prices: { rentalWithoutFuel: 61091.62, rentalWithFuel: 74410.62, pickupWithoutFuel: 46273.75, pickupWithFuel: 69410.62 }
     },
     {
         id: 2,
         name: 'TOYOTA PRADO 2018',
         rentalAvailable: true,
         pickupAvailable: true,
-        prices: { rentalWithoutFuel: 79955.34, rentalWithFuel: 94986.71, pickupdropOff: 59991.14, pickupWithFuel: 89986.71 }
+        prices: { rentalWithoutFuel: 79955.34, rentalWithFuel: 94986.71, pickupWithoutFuel: 59991.14, pickupWithFuel: 89986.71 }
     },
     {
         id: 3,
         name: 'TOYOTA LANDCRUISER 2018',
         rentalAvailable: true,
         pickupAvailable: true,
-        prices: { rentalWithoutFuel: 99503.70, rentalWithFuel: 114535.07, pickupdropOff: 73023.38, pickupWithFuel: 109535.07 }
+        prices: { rentalWithoutFuel: 99503.70, rentalWithFuel: 114535.07, pickupWithoutFuel: 73023.38, pickupWithFuel: 109535.07 }
     },
     {
         id: 4,
         name: 'LEXUS GX 460 2015',
         rentalAvailable: true,
         pickupAvailable: true,
-        prices: { rentalWithoutFuel: 74965.99, rentalWithFuel: 88284.99, pickupdropOff: 55523.33, pickupWithFuel: 83284.99 }
+        prices: { rentalWithoutFuel: 74965.99, rentalWithFuel: 88284.99, pickupWithoutFuel: 55523.33, pickupWithFuel: 83284.99 }
     },
     {
         id: 5,

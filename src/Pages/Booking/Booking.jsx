@@ -148,19 +148,10 @@ const Booking = () => {
     };
 
     const getFuelOptions = (service) => {
-        if (service === 'rental') {
-            return [
-                { value: 'withFuel', label: 'With Fuel' },
-                { value: 'withoutFuel', label: 'Without Fuel' },
-            ];
-        } else if (service === 'pickup') {
-            return [
-                { value: 'withFuel', label: 'With Fuel' },
-                { value: 'dropOff', label: 'Pick Up / Drop Off / Airport Transfer' },
-            ];
-        } else {
-            return [];
-        }
+        return [
+            { value: 'withFuel', label: 'With Fuel' },
+            { value: 'withoutFuel', label: 'Without Fuel' },
+        ];
     };
 
     const handleServiceChange = (event) => {
@@ -230,22 +221,29 @@ const Booking = () => {
         }
 
         const car = carList[selectedCar - 1];
-        const serviceKey = service === 'rental' ? 'rental' : 'pickup';
-        const fuelKey = service === 'pickup' && fuelOption === 'dropOff' ? 'dropOff' : fuelOption === 'withFuel' ? 'WithFuel' : 'WithoutFuel';
+        const serviceKey = service.toLowerCase();
+        const fuelKey = fuelOption.toLowerCase();
 
-        const originalPriceKey = `${serviceKey}${fuelKey}`;
-        const discountedPriceKey = `${serviceKey}${fuelKey}Discounted`;
+        let originalPriceKey;
+
+        if (serviceKey === 'rental') {
+            originalPriceKey = fuelKey === 'withfuel' ? 'rentalWithFuel' : 'rentalWithoutFuel';
+        } else if (serviceKey === 'pickup') {
+            originalPriceKey = fuelKey === 'withfuel' ? 'pickupWithFuel' : 'pickupWithoutFuel';
+        } else {
+            return 'Invalid service option';
+        }
 
         if (!car.prices.hasOwnProperty(originalPriceKey)) {
             return `Price key "${originalPriceKey}" not found in car object`;
         }
 
         const originalPrice = car.prices[originalPriceKey];
-        const discountedPrice = originalPrice - (originalPrice * 0.025);
-        // console.log('Discounted Price:', discountedPrice)
+        const discountedPrice = originalPrice - originalPrice * 0.025;
 
         return { original: originalPrice.toFixed(2), discounted: discountedPrice.toFixed(2) };
     };
+
 
 
     return (
