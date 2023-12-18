@@ -49,13 +49,8 @@ const Booking = () => {
         e.preventDefault();
 
         // Check if any of the fields are empty
-        if (!values.from_name || !values.email || !values.phoneNo
-            || !values.service || !values.selectedCar || !values.pickUpDate
-            || !values.pickUpTime || !values.endDate
-            || !values.dropOffTime || !values.pickUpAddress
-            || !values.fuelOption)
-        // Display an error toast
-        {
+        if (!values.from_name || !values.email || !values.phoneNo || !values.service || !values.selectedCar || !values.pickUpDate || !values.pickUpTime || !values.endDate || !values.dropOffTime || !values.pickUpAddress || !values.fuelOption) {
+            // Display an error toast
             toast.error('Please fill out all fields');
             return;
         }
@@ -63,7 +58,7 @@ const Booking = () => {
         // Now 'values' contains the current form data
         // console.log('Form values:', values);
 
-        // Set the discounted price in the form values
+        // Set the discounted price in the state
         const priceInfo = calculatePrice();
 
         if (typeof priceInfo === 'string') {
@@ -74,14 +69,8 @@ const Booking = () => {
 
         const discountedPrice = priceInfo.discounted;
 
-        // Set the discounted price in the state
-        setDiscountedPrice(discountedPrice);
-
-        // Perform your emailjs.send() with the 'values' object
+        // Use try-catch to handle errors during the email sending process
         try {
-            // Use await to ensure that setDiscountedPrice is completed before continuing
-            await new Promise(resolve => setTimeout(resolve, 0));
-
             // Perform your emailjs.send() with the 'values' object
             const emailResponse = await emailjs.send('service_u6jb8rw', 'template_ffruusu', {
                 ...values,
@@ -99,6 +88,7 @@ const Booking = () => {
             toast.error('Error sending email');
         }
     };
+
 
     const handleCloseModal = () => {
         // Clear the form values (if needed)
@@ -243,7 +233,6 @@ const Booking = () => {
 
         return { original: originalPrice.toFixed(2), discounted: discountedPrice.toFixed(2) };
     };
-
 
 
     return (
