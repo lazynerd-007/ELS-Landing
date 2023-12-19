@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Header from './Header'
-import BecomeFleetOwner from './BecomeFleetOwner'
+import LuxuryExperience from "./LuxuryExperience";
 import FAQs from './FAQs'
 
 
@@ -26,7 +26,7 @@ const HomePage = () => {
                     <Header />
                 </div>
                 <div className='border-b border-[#D1D5DB]/20'>
-                    <BecomeFleetOwner />
+                    <LuxuryExperience />
                 </div>
                 <div className=''>
                     <FAQs />
