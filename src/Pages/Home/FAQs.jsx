@@ -19,12 +19,12 @@ const FAQs = () => {
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
                             <h2 className="font-medium tablet:text-xl text-base">
-                                What sets ELS luxury car apart from regular cars?
+                                What sets ELS Luxury black car service apart from regular car services?
                             </h2>
                         </summary>
 
                         <p className="mt-4 px-2 leading-relaxed text-sm text-[#D9D9D9]">
-                            ELS Luxury cars typically offer superior comfort,
+                            ELS Luxury black car service typically offers superior comfort,
                             advanced technology, high-quality materials,
                             and exceptional performance. We often feature cutting-edge
                             safety features and boast a higher level of craftsmanship.
@@ -36,12 +36,12 @@ const FAQs = () => {
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
                             <h2 className="font-medium tablet:text-xl text-base">
-                                What are the key features that define ELS luxury car?
+                                What are the key features that define ELS luxury black cars?
                             </h2>
                         </summary>
 
                         <p className="mt-4 px-2 leading-relaxed text-sm text-[#D9D9D9]">
-                            ELS Luxury cars include features such as premium leather
+                            ELS Luxury black cars include features such as premium leather
                             upholstery, advanced infotainment systems, high-end audio
                             systems, adaptive cruise control, autonomous driving
                             capabilities, and top-notch build quality.
@@ -52,12 +52,12 @@ const FAQs = () => {
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
                             <h2 className="font-medium tablet:text-xl text-base">
-                                Why you should choose ELS luxury car over regular one?
+                                Why you should choose ELS Luxury black car service over regular ones?
                             </h2>
                         </summary>
 
                         <p className="mt-4 px-2 leading-relaxed text-sm text-[#D9D9D9]">
-                            ELS Luxury cars offer an unparalleled driving experience,
+                            ELS Luxury black car service offers an unparalleled driving experience,
                             combining advanced technology, superior comfort, and
                             exquisite craftsmanship. They provide a status symbol
                             and often come with cutting-edge features that enhance
@@ -70,12 +70,12 @@ const FAQs = () => {
                             className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-2 text-white"
                         >
                             <h2 className="font-medium tablet:text-xl text-base">
-                                Do ELS luxury cars have better safety features?
+                                Does ELS Luxury black car service have better safety features?
                             </h2>
                         </summary>
 
                         <p className="mt-4 px-2 leading-relaxed text-sm text-[#D9D9D9]">
-                            Absolutely. ELS Luxury cars prioritize safety with
+                            Absolutely. ELS Luxury black car service prioritize safety with
                             features such as adaptive cruise control, lane-keeping
                             assistance, automatic emergency braking, and advanced
                             sensor systems. These technologies aim to enhance overall

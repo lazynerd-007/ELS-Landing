@@ -12,6 +12,9 @@ const Navbar = () => {
                 <div className="navbar-start">
                     <Link to="/" className="">
                         <img src={Logo} className="laptop:w-[12%] tablet:w-1/6 w-1/4" alt="ELS Logo" />
+                        <p className="text-xs capitalize">
+                            Luxury black car service
+                        </p>
                     </Link>
                 </div>
                 <div className="navbar-end hidden laptop:flex">

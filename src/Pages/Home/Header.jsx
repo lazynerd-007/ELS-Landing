@@ -1,6 +1,3 @@
-import Sedan from "../../assets/sedann.png"
-import SUVs from "../../assets/suv.png"
-import Vans from "../../assets/van.png"
 import ColorBlocks from "../../assets/color blocks.png"
 import { Link } from "react-router-dom"
 import Video from "../../assets/ELS.mp4"
