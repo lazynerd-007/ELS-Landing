@@ -6,10 +6,10 @@ export const NavbarData = [
     bookmark: "/#",
   },
 
-  {
-    title: "Become A Fleet Owner",
-    bookmark: "/#FleetOwner",
-  },
+  // {
+  //   title: "Exclusive Luxury Experience",
+  //   bookmark: "/#FleetOwner",
+  // },
 
   {
     title: "Help",
