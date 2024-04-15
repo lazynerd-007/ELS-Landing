@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-// import Navbar from "./Components/Navbar/Navbar"
-// import Footer from "./Pages/Home/Footer"
+import Navbar from "./Components/Navbar/Navbar"
+import Footer from "./Components/Footer/Footer"
 // import ScrollButton from "./Components/ScrollToTop/ScrollToTop";
 
 
@@ -8,7 +8,7 @@ const Layout = () => {
     return (
         <section className="bg-[] text-white">
             <div>
-                {/* <Navbar /> */}
+                <Navbar />
             </div>
 
             <div className="">
@@ -16,7 +16,7 @@ const Layout = () => {
             </div>
 
             <div className="">
-                {/* <Footer /> */}
+                <Footer />
             </div>
             {/* <ScrollButton /> */}
         </section>

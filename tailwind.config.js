@@ -9,7 +9,6 @@ export default {
         extend: {
             backgroundImage: {
                 'hero-bg': "url('./src/assets/hero-bg.png')",
-                'v2-hero-bg': "url('./src/assets/Audi.png')",
             }
         },
 
