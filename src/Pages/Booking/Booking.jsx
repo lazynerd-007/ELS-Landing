@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DatePicker, Space } from "antd";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
-import { carList, Times } from "./content";
+import { Times } from "./content";
 import Select from "react-select";
 import car from "../../assets/Car2.png";
 
@@ -197,7 +197,6 @@ const Booking = () => {
     setService(value);
     setSelectedCar(""); // Reset selectedCar when changing service
     setFuelOption(""); // Reset fuelOption when changing service
-    // console.log('Selected service:', value);
     setValues({
       ...values,
       service: value,
@@ -206,16 +205,24 @@ const Booking = () => {
   };
 
   const handleCarChange = (selectedOption) => {
-    console.log("Selected car:", selectedOption);
-
     if (selectedOption) {
       const selectedCarId = selectedOption.value;
+      const selectedCar = cars.find((car) => car.id === selectedCarId);
 
-      // Set the selected car's ID as the vehicle_id in the values state
-      setValues({
-        ...values,
-        vehicle_id: selectedCarId,
-      });
+      console.log("Selected car:", selectedCar); // Check the selected car
+
+      if (selectedCar) {
+        // Update the values state using the functional form of setValues
+        setValues((prevValues) => ({
+          ...prevValues,
+          vehicle_id: selectedCarId,
+        }));
+
+        console.log("Updated values:", values); // Check the updated values
+
+        // Calculate and set the default price based on the selected service and fuel option
+        calculatePrice(selectedCar, fuelOption);
+      }
     } else {
       // Handle cases where no option is selected (e.g., cleared selection)
       setValues({
@@ -225,6 +232,82 @@ const Booking = () => {
     }
   };
 
+  // const handleCarChange = (selectedOption) => {
+  //   if (selectedOption) {
+  //     const selectedCarId = selectedOption.value;
+  //     const selectedCar = cars.find((car) => car.id === selectedCarId);
+
+  //     if (selectedCar) {
+  //       // Set the selected car's ID as the vehicle_id in the values state
+  //       setValues({
+  //         ...values,
+  //         vehicle_id: selectedCarId,
+  //       });
+
+  //       // Calculate and set the default price based on the selected service and fuel option
+  //       calculatePrice(selectedCar, fuelOption);
+  //     }
+  //   } else {
+  //     // Handle cases where no option is selected (e.g., cleared selection)
+  //     setValues({
+  //       ...values,
+  //       vehicle_id: "",
+  //     });
+  //   }
+  // };
+
+  const handleFuelOptionChange = (event) => {
+    const value = event.target.value;
+    setFuelOption(value);
+
+    // Calculate and set the price based on the selected car and fuel option
+    calculatePrice(selectedCar, value);
+
+    // Set the trip_option value in the values state
+    setValues({
+      ...values,
+      trip_option: value, // Update trip_option with fuel option value
+    });
+  };
+
+  const calculatePrice = (selectedCar, fuelOption) => {
+    if (selectedCar && service) {
+      let price;
+
+      if (service === "pickup") {
+        if (fuelOption === "withFuel") {
+          price = selectedCar.pickup_with_fuel_price;
+        } else if (fuelOption === "withoutFuel") {
+          price = selectedCar.pickup_without_fuel_price;
+        }
+      } else if (service === "rental") {
+        if (fuelOption === "withFuel") {
+          price = selectedCar.rental_with_fuel_price;
+        } else if (fuelOption === "withoutFuel") {
+          price = selectedCar.rental_without_fuel_price;
+        }
+      }
+
+      // Apply discount if available
+      if (selectedCar.has_discount) {
+        const discountPrice = selectedCar.discount_price[fuelOption];
+        setDiscountedPrice(discountPrice);
+      } else {
+        setDiscountedPrice(null);
+      }
+
+      setPrice(price);
+    }
+  };
+
+  const setPrice = (price) => {
+    setValues({
+      ...values,
+      price: price,
+    });
+  };
+
+  // pickup
   const handlepickup_timeChange = (event) => {
     const value = event.target.value;
     setpickup_time(value);
@@ -235,6 +318,7 @@ const Booking = () => {
     });
   };
 
+  // dropoff
   const handledrop_off_timeChange = (event) => {
     const value = event.target.value;
     setdrop_off_time(value);
@@ -243,43 +327,6 @@ const Booking = () => {
       ...values,
       drop_off_time: value,
     });
-  };
-
-  const handleFuelOptionChange = (event) => {
-    const value = event.target.value;
-    setFuelOption(value);
-    // Set the trip_option value in the values state
-    setValues({
-      ...values,
-      trip_option: value, // Update trip_option with fuel option value
-    });
-  };
-
-  const calculatePrice = () => {
-    if (!service || !selectedCar || !fuelOption) {
-      return "Please select service, car, and fuel option";
-    }
-
-    // Find the selected car from the car list using selectedCar ID
-    const car = cars.find((c) => c.id === selectedCar);
-    if (!car) {
-      return "Selected car not found";
-    }
-
-    const serviceKey =
-      service.toLowerCase() + "_with_" + fuelOption.toLowerCase() + "_price";
-    const originalPrice = car[serviceKey];
-    const discountedPrice = car.discount_price[serviceKey];
-
-    // Check if the price key exists
-    if (originalPrice === undefined || discountedPrice === undefined) {
-      return `Price key "${serviceKey}" not found in car object`;
-    }
-
-    return {
-      original: originalPrice.toFixed(2),
-      discounted: discountedPrice.toFixed(2),
-    };
   };
 
   return (
@@ -569,23 +616,15 @@ const Booking = () => {
                         <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
                           Price
                         </label>
-                        {selectedCar && fuelOption && (
+                        <p className="text-[#FEBB1B] mt-2">₦ {values.price}</p>
+                        {discountedPrice && (
                           <>
-                            {typeof calculatePrice() === "string" ? (
-                              <p className="text-red-500">{calculatePrice()}</p>
-                            ) : (
-                              <>
-                                <p className="text-[#FEBB1B] mt-2">
-                                  {`₦${calculatePrice().original}`}
-                                </p>
-                                <label className="block mt-2 mb-2 text-sm text-[#E5E7E8] capitalize">
-                                  With Discount:
-                                </label>
-                                <p className="text-[#FEBB1B] mt-2">
-                                  {`₦${calculatePrice().discounted}`}
-                                </p>
-                              </>
-                            )}
+                            <label className="block mt-2 mb-2 text-sm text-[#E5E7E8] capitalize">
+                              With Discount:
+                            </label>
+                            <p className="text-[#FEBB1B] mt-2">
+                              ₦ {discountedPrice}
+                            </p>
                           </>
                         )}
                       </div>
