@@ -1,614 +1,690 @@
-import React, { useState } from 'react';
-import { DatePicker, Space } from 'antd';
-import dayjs from 'dayjs';
-import { motion } from 'framer-motion';
-import { carList, Times } from './content';
-import emailjs from '@emailjs/browser';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import ColorBlocks from "../../assets/color blocks.png"
-import { BookingModal } from './Modal';
+import React, { useState, useEffect } from "react";
+import { DatePicker, Space } from "antd";
+import dayjs from "dayjs";
+import { motion } from "framer-motion";
+import { carList, Times } from "./content";
+import Select from "react-select";
+import car from "../../assets/Car2.png";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ColorBlocks from "../../assets/color blocks.png";
+import { BookingModal } from "./Modal";
 
 const animationConfiguration = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
 const onChange = (date, dateString) => {
-    // console.log(date, dateString);
+  // console.log(date, dateString);
+};
+
+const CarSelect = ({ cars, handleCarChange }) => {
+  // Function to customize how options are displayed
+  const formatOptionLabel = ({ value, label, alt, customAbbreviation }) => (
+    <div className="flex items-center">
+      <img
+        // src={customAbbreviation}
+        src={car}
+        alt={alt}
+        style={{ width: 50, marginRight: 30 }}
+      />
+      <div>{label}</div>
+    </div>
+  );
+
+  // Preparing options for react-select
+  const options = cars.map((car) => ({
+    value: car.id,
+    label: `${car.modelName}`,
+    // - (${car.status})
+    alt: `${car.vehicle_type}`,
+    customAbbreviation: car.model_image,
+  }));
+
+  return (
+    <Select
+      options={options}
+      onChange={handleCarChange} // Ensure this is connected correctly
+      formatOptionLabel={formatOptionLabel}
+      placeholder="Select vehicle"
+      className="text-[#A6A6A6] cursor-pointer py-1 rounded-sm bg-transparent border-none w-full"
+    />
+  );
 };
 
 const Booking = () => {
-    const [service, setService] = useState('');
-    const [selectedCar, setSelectedCar] = useState('');
-    const [fuelOption, setFuelOption] = useState('');
-    const [pickUpTime, setPickupTime] = useState('');
-    const [dropOffTime, setDropOffTime] = useState('');
-    const [discountedPrice, setDiscountedPrice] = useState('');
-    const [openModal, setOpenModal] = useState(false);
+  const [service, setService] = useState("");
+  const [selectedCar, setSelectedCar] = useState("");
+  const [fuelOption, setFuelOption] = useState("");
+  const [pickup_time, setpickup_time] = useState("");
+  const [drop_off_time, setdrop_off_time] = useState("");
+  const [discountedPrice, setDiscountedPrice] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  // State to store the list of cars
+  const [cars, setCars] = useState([]);
 
-    const [values, setValues] = useState({
-        from_name: '',
-        email: '',
-        phoneNo: '',
-        service: '',
-        selectedCar: '',
-        // departure: '',
-        pickUpDate: '',
-        pickUpTime: '',
-        endDate: '',
-        dropOffTime: '',
-        pickUpAddress: '',
-        dropOffAddress: '',
-        fuelOption: '',
-        discountPrice: '',
-    });
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        // Check if any of the fields are empty
-        if (!values.from_name || !values.email || !values.phoneNo || !values.service || !values.selectedCar || !values.pickUpDate || !values.pickUpTime || !values.endDate || !values.dropOffTime || !values.pickUpAddress || !values.fuelOption) {
-            // Display an error toast
-            toast.error('Please fill out all fields');
-            return;
-        }
-
-        // Now 'values' contains the current form data
-        // console.log('Form values:', values);
-
-        // Set the discounted price in the state
-        const priceInfo = calculatePrice();
-
-        if (typeof priceInfo === 'string') {
-            // Handle the error (e.g., display a toast)
-            toast.error(priceInfo);
-            return;
-        }
-
-        const discountedPrice = priceInfo.discounted;
-
-        // Use try-catch to handle errors during the email sending process
-        try {
-            // Perform your emailjs.send() with the 'values' object
-            const emailResponse = await emailjs.send('service_u6jb8rw', 'template_ffruusu', {
-                ...values,
-                discountPrice: discountedPrice,
-            }, 'MiHjFMb3Hhwh8R9De');
-
-            console.log('Email sent successfully:', emailResponse);
-
-            // Display the modal only if the email was sent successfully
-            setOpenModal(true);
-
-        } catch (error) {
-            console.error('Error sending email:', error);
-            // Display an error toast
-            toast.error('Error sending email');
-        }
-    };
-
-
-    const handleCloseModal = () => {
-        // Clear the form values (if needed)
-        // setValues({
-        //     from_name: '',
-        //     email: '',
-        //     phoneNo: '',
-        //     service: '',
-        //     selectedCar: '',
-        //     departure: '',
-        //     pickUpDate: '',
-        //     pickUpTime: '',
-        //     endDate: '',
-        //     dropOffTime: '',
-        //     pickUpAddress: '',
-        //     dropOffAddress: '',
-        //     fuelOption: '',
-        //     discountPrice: '',
-        // });
-
-        // Close the modal
-        setOpenModal(false);
-
-        // Scroll to the top of the page
-        // window.scrollTo(0, 0);
-
-        // Or Refresh the page
-        window.location.reload();
-    };
-
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setValues({
-            ...values,
-            [name]: value,
-        });
-    };
-
-
-    // Form select logic
-    const getServiceOptions = () => {
-        return [
-            { value: 'pickup', label: 'Airport Pickup' },
-            { value: 'rental', label: 'Daily Rental' },
-        ];
-    };
-
-    const getFuelOptions = (service) => {
-        return [
-            { value: 'withFuel', label: 'With Fuel' },
-            { value: 'withoutFuel', label: 'Without Fuel' },
-        ];
-    };
-
-    const handleServiceChange = (event) => {
-        const value = event.target.value;
-        setService(value);
-        setSelectedCar(''); // Reset selectedCar when changing service
-        setFuelOption(''); // Reset fuelOption when changing service
-        // console.log('Selected service:', value);
-        setValues({
-            ...values,
-            service: value,
-            selectedCar: '', // Reset selectedCar
-            fuelOption: '', // Reset fuelOption
-        });
-    };
-
-    const handleCarChange = (event) => {
-        const selectedCarId = event.target.value;
-        setSelectedCar(selectedCarId);
-
-        // Find the corresponding car object from carList
-        const selectedCarObject = carList.find((car) => car.id === parseInt(selectedCarId));
-        // console.log('Selected car:', selectedCarId);
-        // Set the car name in the values state
-        setValues({
-            ...values,
-            selectedCar: selectedCarObject ? selectedCarObject.name : '',
-        });
-    };
-
-
-
-
-    const handlePickupTimeChange = (event) => {
-        const value = event.target.value;
-        setPickupTime(value);
-        // console.log('Pickup Time:', value);
-        setValues({
-            ...values,
-            pickUpTime: value,
-        });
-    };
-
-    const handleDropOffTimeChange = (event) => {
-        const value = event.target.value;
-        setDropOffTime(value);
-        // console.log('Dropoff Time:', value);
-        setValues({
-            ...values,
-            dropOffTime: value,
-        });
-    };
-
-    const handleFuelOptionChange = (event) => {
-        const value = event.target.value;
-        setFuelOption(value);
-        // console.log('Fuel Option:', value);
-        setValues({
-            ...values,
-            fuelOption: value,
-        });
-    };
-
-    const calculatePrice = () => {
-        if (!service || !selectedCar || !fuelOption) {
-            return 'Please select service, car, and fuel option';
-        }
-
-        const car = carList[selectedCar - 1];
-        const serviceKey = service.toLowerCase();
-        const fuelKey = fuelOption.toLowerCase();
-
-        let originalPriceKey;
-
-        if (serviceKey === 'rental') {
-            originalPriceKey = fuelKey === 'withfuel' ? 'rentalWithFuel' : 'rentalWithoutFuel';
-        } else if (serviceKey === 'pickup') {
-            originalPriceKey = fuelKey === 'withfuel' ? 'pickupWithFuel' : 'pickupWithoutFuel';
+  // Fetch cars from the API endpoint
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const response = await fetch(
+          "https://fms.elsluxuryblackcar.com/api/vehicles"
+        );
+        if (response.ok) {
+          const data = await response.json();
+          // Set the list of cars in state
+          setCars(data.vehicles);
         } else {
-            return 'Invalid service option';
+          console.error("Failed to fetch cars:", response.statusText);
         }
-
-        if (!car.prices.hasOwnProperty(originalPriceKey)) {
-            return `Price key "${originalPriceKey}" not found in car object`;
-        }
-
-        const originalPrice = car.prices[originalPriceKey];
-        const discountedPrice = originalPrice - originalPrice * 0.025;
-
-        return { original: originalPrice.toFixed(2), discounted: discountedPrice.toFixed(2) };
+      } catch (error) {
+        console.error("Error fetching cars:", error);
+      }
     };
 
+    fetchCars();
+  }, []); // Run only once on component mount
 
-    return (
-        <motion.div
-            variants={animationConfiguration}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={{ duration: 1.5 }}
-        >
-            <ToastContainer />
-            <BookingModal openModal={openModal} onClose={handleCloseModal} values={values} />
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    vehicle_id: "",
+    // departure: '',
+    pickup_date: "",
+    pickup_time: "",
+    end_date: "",
+    drop_off_time: "",
+    pick_up_address: "",
+    drop_off_address: "",
+    trip_option: "",
+    price: "",
+  });
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-            <section className="bg-[#0C0C0C] tablet:bg-hero-bg bg-cover bg-center text-white pt-20 laptop:pt-28">
-                <div className="pt- min-h-screen laptop:px-12 tablet:px-8 px-4">
-                    <div className="flex flex-col min-h-screen">
-                        <div className="container flex flex-col flex-1 py-12 mx-auto">
-                            <div className="flex-1 laptop:flex laptop:items-cente laptop:-mx-6">
-                                <div className="text-white space-y-10 laptop:w-1/2 laptop:mx-6 mb-10 laptop:mb-0 laptop:block">
-                                    <div className="">
+    console.log("Form values before submission:", values); // Check the values before submission
 
-                                        <div className='laptop:space-y-8 space-y-4 '>
-                                            <img src={ColorBlocks} className='mb-4' alt='color-blocks' />
-                                            <h1
-                                                className="mb-5 text-4xl tablet:text-5xl laptop:text-[3.5rem] tracking-tight leading-none font-black">
-                                                Book Your Ride
-                                            </h1>
-                                            <p className="max-w-2xl mb-6 font-light laptop:leading-[2rem] text-white laptop:mb-8 tablet:text-lg laptop:text-[1.225rem]">
-                                                Every Detail Crafted for the Discerning Connoisseur.
-                                            </p>
-                                        </div>
+    // Check if any of the fields are empty
+    if (
+      !values.name ||
+      !values.email ||
+      !values.phone ||
+      !values.service ||
+      !values.vehicle_id ||
+      !values.pickup_date ||
+      !values.pickup_time ||
+      !values.end_date ||
+      !values.drop_off_time ||
+      !values.pick_up_address ||
+      !values.trip_option
+    ) {
+      // Display an error toast
+      toast.error("Please fill out all fields");
+      return;
+    }
 
-                                        {/* Rental conditions */}
-                                        <div className='bg-black laptop:mt-28 laptop:block hidden mt-14 text-sm bg-opacity-60 py-2 px-4 '>
-                                            <h2 className='text-center text-lg underline'>
-                                                Rental conditions:
-                                            </h2>
-                                            <p className='tablet:flex justify-between'>
-                                                Please note that our working period is between 6am –6pm.
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Normal Overtime Rate (7pm – 12 midnight)  <span>N2,000 per hour</span>
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Abnormal Overtime Rate (12 midnight—6 am) <span>N2,500 per hour</span>
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Weekend Allowance <span>N3,000 per day</span>
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Public holiday allowance <span>N5,000 per day</span>
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Travel Allowance <span>N4,000 per day</span>
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Outstation allowance <span>N10,000 per night</span>
-                                            </p>
-                                            <p className=''>
-                                                Toll – pass/Parking Toll is excluded
-                                            </p>
+    try {
+      const response = await fetch(
+        "https://fms.elsluxuryblackcar.com/api/bookVehicle",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "X-API-Key": "pEzfI487GKExKu0BeSOXNqOSYORHzCCj20ZAEQTC4W8=",
+            //   "X-API-Key": "api_key",
+          },
+          body: JSON.stringify(values),
+        }
+      );
 
-                                            <p className='mt-4 text-[#FEBB1B]'>
-                                                Note: You have the option to reserve your
-                                                ride 24 hours before your scheduled departure or due date.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+      if (response.ok) {
+        // Handle successful response
+        const responseData = await response.json();
+        console.log("Booking successful:", responseData);
+        setOpenModal(true);
+      } else {
+        // Handle error response
+        console.error("Error:", response.statusText);
+        toast.error("Failed to book vehicle");
+      }
+    } catch (error) {
+      // Handle fetch error
+      console.error("Fetch error:", error);
+      toast.error("Failed to book vehicle");
+    }
+  };
 
-                                <div className="laptop:w-1/2 laptop:mx-6">
-                                    <div className="w-full tablet:px-8 tablet:border-none border px-2 border-white/5 py-10 mx-auto overflow-hidden bg-[#0C0C0C]  shadow-2xl rounded-xl  laptop:max-w-xl">
+  const handleCloseModal = () => {
+    // Close the modal
+    setOpenModal(false);
 
-                                        <p className='mb-4 text-[#FEBB1B] laptop:hidden'>
-                                            Note: You have the option to reserve your
-                                            ride 24 hours before your scheduled departure or due date.
-                                        </p>
+    // Or Refresh the page
+    window.location.reload();
+  };
 
-                                        <form onSubmit={handleSubmit}
-                                            className="">
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
 
-                                            {/* Service Select */}
-                                            <div className="w-full py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Select a service
-                                                </label>
-                                                <select
-                                                    value={service}
-                                                    onChange={(event) => handleServiceChange(event)}
-                                                    name="service"
-                                                    id="service"
-                                                    className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full'
-                                                >
-                                                    <option value="" className='bg-black'>Select Service</option>
-                                                    {getServiceOptions().map((option) => (
-                                                        <option key={option.value} value={option.value} className='bg-black'>
-                                                            {option.label}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
+  // Form select logic
+  const getServiceOptions = () => {
+    return [
+      { value: "pickup", label: "Airport Pickup" },
+      { value: "rental", label: "Daily Rental" },
+    ];
+  };
 
-                                            {/* Car Select */}
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Select a vehicle
-                                                </label>
-                                                <select
-                                                    value={selectedCar}
-                                                    onChange={(event) => handleCarChange(event)}
-                                                    disabled={!service}
-                                                    name="selectedCar"
-                                                    id="selectedCar"
-                                                    className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full'
-                                                >
-                                                    <option value="" className='bg-black'>Select Car</option>
-                                                    {carList
-                                                        .filter((car) => (service === 'rental' ? car.rentalAvailable : car.pickupAvailable))
-                                                        .map((car) => (
-                                                            <option key={car.id} value={car.id} className='bg-black'>
-                                                                {car.name}
-                                                            </option>
-                                                        ))}
-                                                </select>
-                                            </div>
+  const getFuelOptions = (service) => {
+    return [
+      { value: "withFuel", label: "With Fuel" },
+      { value: "withoutFuel", label: "Without Fuel" },
+    ];
+  };
 
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Departure
-                                                </label>
-                                                <p className='text-[#FEBB1B] mt-2'>
-                                                    Lagos
-                                                </p>
-                                            </div>
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Pick up date
-                                                </label>
-                                                <Space direction="vertical" className="w-full mb-1">
-                                                    <DatePicker
-                                                        onChange={(date, dateString) => handleInputChange({ target: { name: 'pickUpDate', value: dateString } })}
-                                                        className='w-full text-[#A6A6A6]'
-                                                        disabledDate={(current) => current && current < dayjs().endOf('day')}
-                                                    // style={{
-                                                    //     backgroundColor: 'transparent',
-                                                    //     color: 'white',
-                                                    // }}
-                                                    // pickerInputClass="custom-datepicker" // Add a custom class for the picker input
-                                                    />
-                                                </Space>
-                                                {/* className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
-                                            </div>
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Pick Up time
-                                                </label>
-                                                <select
-                                                    name="pickUpTime"
-                                                    id="pickUpTime"
-                                                    value={pickUpTime}
-                                                    onChange={(event) => handlePickupTimeChange(event)}
-                                                    className='text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full'
-                                                >
-                                                    <option value="" className='bg-black'>Select Time</option>
-                                                    {Times.map((time, index) => (
-                                                        <option key={index} value={time} className='bg-black'>
-                                                            {time}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    End date
-                                                </label>
-                                                <Space direction="vertical" className='w-full mb-1'>
-                                                    <DatePicker
-                                                        onChange={(date, dateString) => handleInputChange({ target: { name: 'endDate', value: dateString } })}
-                                                        className='w-full text-[#A6A6A6]'
-                                                        disabledDate={(current) => current && current < dayjs().endOf('day')}
-                                                    />
-                                                </Space>
-                                                {/* className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
-                                            </div>
+  const handleServiceChange = (event) => {
+    const value = event.target.value;
+    setService(value);
+    setSelectedCar(""); // Reset selectedCar when changing service
+    setFuelOption(""); // Reset fuelOption when changing service
+    // console.log('Selected service:', value);
+    setValues({
+      ...values,
+      service: value,
+      vehicle_id: "", // Reset selectedCar
+    });
+  };
 
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Drop Off time
-                                                </label>
-                                                <select
-                                                    name="dropOffTime"
-                                                    id="dropOffTime"
-                                                    value={dropOffTime}
-                                                    onChange={(event) => handleDropOffTimeChange(event)}
-                                                    className='text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full'
-                                                >
-                                                    <option value="" className='bg-black'>Select Time</option>
-                                                    {Times.map((time, index) => (
-                                                        <option key={index} value={time} className='bg-black'>
-                                                            {time}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
+  const handleCarChange = (selectedOption) => {
+    console.log("Selected car:", selectedOption);
 
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Pick up address
-                                                </label>
-                                                <input
-                                                    id="pickUpAddress"
-                                                    name="pickUpAddress"
-                                                    type="text"
-                                                    value={values.pickUpAddress}
-                                                    onChange={handleInputChange}
-                                                    placeholder="Address"
-                                                    className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
-                                                />
-                                            </div>
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    DROP OFF address
-                                                </label>
-                                                <input
-                                                    id="dropOffAddress"
-                                                    name="dropOffAddress"
-                                                    type="text"
-                                                    value={values.dropOffAddress}
-                                                    onChange={handleInputChange}
-                                                    placeholder="Address"
-                                                    className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
-                                                />
-                                            </div>
+    if (selectedOption) {
+      const selectedCarId = selectedOption.value;
 
-                                            {/* Fuel Option Select */}
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Options
-                                                </label>
-                                                <select
-                                                    value={fuelOption}
-                                                    onChange={(event) => handleFuelOptionChange(event)}
-                                                    name="fuelOption"
-                                                    id="fuelOption"
-                                                    disabled={!selectedCar}
-                                                    className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full'
-                                                >
-                                                    <option value="" className='bg-black'>Select Fuel Option</option>
-                                                    {getFuelOptions(service).map((option) => (
-                                                        <option key={option.value} value={option.value} className='bg-black'>
-                                                            {option.label}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
+      // Set the selected car's ID as the vehicle_id in the values state
+      setValues({
+        ...values,
+        vehicle_id: selectedCarId,
+      });
+    } else {
+      // Handle cases where no option is selected (e.g., cleared selection)
+      setValues({
+        ...values,
+        vehicle_id: "",
+      });
+    }
+  };
 
-                                            {/* Display Price */}
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Price
-                                                </label>
-                                                {selectedCar && fuelOption && (
-                                                    <>
-                                                        <p className='text-[#FEBB1B] mt-2'>
-                                                            {`₦${calculatePrice().original}`}
-                                                        </p>
-                                                        {/* Display the discounted price directly from the state */}
-                                                        <label className="block mt-2 mb-2 text-sm text-[#E5E7E8] capitalize">
-                                                            With 2.5% Discount:
-                                                        </label>
-                                                        <p className='text-[#FEBB1B] mt-2'>
-                                                            {`₦${calculatePrice().discounted}`}
-                                                        </p>
-                                                    </>
-                                                )}
-                                            </div>
+  const handlepickup_timeChange = (event) => {
+    const value = event.target.value;
+    setpickup_time(value);
+    // console.log('Pickup Time:', value);
+    setValues({
+      ...values,
+      pickup_time: value,
+    });
+  };
 
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Name
-                                                </label>
-                                                <input
-                                                    id="from_name"
-                                                    name="from_name"
-                                                    type="text"
-                                                    value={values.from_name}
-                                                    onChange={handleInputChange}
-                                                    placeholder="John Doe"
-                                                    className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
-                                                />
-                                                {/* className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
-                                            </div>
+  const handledrop_off_timeChange = (event) => {
+    const value = event.target.value;
+    setdrop_off_time(value);
+    // console.log('Dropoff Time:', value);
+    setValues({
+      ...values,
+      drop_off_time: value,
+    });
+  };
 
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Email address
-                                                </label>
-                                                <input
-                                                    id="email"
-                                                    name="email"
-                                                    type="email"
-                                                    value={values.email}
-                                                    onChange={handleInputChange}
-                                                    placeholder="johndoe@example.com"
-                                                    className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
-                                                />
-                                            </div>
+  const handleFuelOptionChange = (event) => {
+    const value = event.target.value;
+    setFuelOption(value);
+    // Set the trip_option value in the values state
+    setValues({
+      ...values,
+      trip_option: value, // Update trip_option with fuel option value
+    });
+  };
 
-                                            <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                                                <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                                                    Phone Number
-                                                </label>
-                                                <input
-                                                    id="phoneNo"
-                                                    name="phoneNo"
-                                                    type="tel"
-                                                    value={values.phoneNo}
-                                                    onChange={handleInputChange}
-                                                    placeholder="+234 123 456 789"
-                                                    className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
-                                                />
-                                            </div>
+  const calculatePrice = () => {
+    if (!service || !selectedCar || !fuelOption) {
+      return "Please select service, car, and fuel option";
+    }
 
-                                            <div className="flex items-center justify-center">
-                                                <button type="submit"
-                                                    className="py-3 mt-6 w-3/4 border border-transparent rounded-full font-medium bg-[#FEBB1B] text-black hover:border hover:border-[#FEBB1B] focus:outline-none hover:text-white hover:bg-transparent focus:ring-1 focus:ring-[#FEBB1B] ">
-                                                    Book Now
-                                                </button>
-                                            </div>
-                                        </form>
+    // Find the selected car from the car list using selectedCar ID
+    const car = cars.find((c) => c.id === selectedCar);
+    if (!car) {
+      return "Selected car not found";
+    }
 
-                                        {/* Rental conditions */}
-                                        <div className='bg-black laptop:hidden block mt-20 text-sm bg-opacity-60 py-6 px-4 '>
+    const serviceKey =
+      service.toLowerCase() + "_with_" + fuelOption.toLowerCase() + "_price";
+    const originalPrice = car[serviceKey];
+    const discountedPrice = car.discount_price[serviceKey];
 
-                                            <h2 className='text-center text-lg underline'>
-                                                Rental conditions:
-                                            </h2>
-                                            <p className='tablet:flex justify-between'>
-                                                Please note that our working period is between 6am –6pm.
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Normal Overtime Rate (7pm – 12 midnight)  <span>N2,000 per hour</span>
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Abnormal Overtime Rate (12 midnight—6 am) <span>N2,500 per hour</span>
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Weekend Allowance <span>N3,000 per day</span>
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Public holiday allowance <span>N5,000 per day</span>
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Travel Allowance <span>N4,000 per day</span>
-                                            </p>
-                                            <p className='tablet:flex justify-between'>
-                                                - Outstation allowance <span>N10,000 per night</span>
-                                            </p>
-                                            <p className=''>
-                                                Toll – pass/Parking Toll is excluded
-                                            </p>
+    // Check if the price key exists
+    if (originalPrice === undefined || discountedPrice === undefined) {
+      return `Price key "${serviceKey}" not found in car object`;
+    }
 
-                                        </div>
+    return {
+      original: originalPrice.toFixed(2),
+      discounted: discountedPrice.toFixed(2),
+    };
+  };
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+  return (
+    <motion.div
+      variants={animationConfiguration}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 1.5 }}
+    >
+      <ToastContainer />
+      <BookingModal
+        openModal={openModal}
+        onClose={handleCloseModal}
+        values={values}
+      />
+
+      <section className="bg-[#0C0C0C] tablet:bg-hero-bg bg-cover bg-center text-white pt-20 laptop:pt-28">
+        <div className="pt- min-h-screen laptop:px-12 tablet:px-8 px-4">
+          <div className="flex flex-col min-h-screen">
+            <div className="container flex flex-col flex-1 py-12 mx-auto">
+              <div className="flex-1 laptop:flex laptop:items-cente laptop:-mx-6">
+                <div className="text-white space-y-10 laptop:w-1/2 laptop:mx-6 mb-10 laptop:mb-0 laptop:block">
+                  <div className="">
+                    <div className="laptop:space-y-8 space-y-4 ">
+                      <img
+                        src={ColorBlocks}
+                        className="mb-4"
+                        alt="color-blocks"
+                      />
+                      <h1 className="mb-5 text-4xl tablet:text-5xl laptop:text-[3.5rem] tracking-tight leading-none font-black">
+                        Book Your Ride
+                      </h1>
+                      <p className="max-w-2xl mb-6 font-light laptop:leading-[2rem] text-white laptop:mb-8 tablet:text-lg laptop:text-[1.225rem]">
+                        Every Detail Crafted for the Discerning Connoisseur.
+                      </p>
                     </div>
 
+                    {/* Rental conditions */}
+                    <div className="bg-black laptop:mt-28 laptop:block hidden mt-14 text-sm bg-opacity-60 py-2 px-4 ">
+                      <h2 className="text-center text-lg underline">
+                        Rental conditions:
+                      </h2>
+                      <p className="tablet:flex justify-between">
+                        Please note that our working period is between 6am –6pm.
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Normal Overtime Rate (7pm – 12 midnight){" "}
+                        <span>N2,000 per hour</span>
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Abnormal Overtime Rate (12 midnight—6 am){" "}
+                        <span>N2,500 per hour</span>
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Weekend Allowance <span>N3,000 per day</span>
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Public holiday allowance <span>N5,000 per day</span>
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Travel Allowance <span>N4,000 per day</span>
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Outstation allowance <span>N10,000 per night</span>
+                      </p>
+                      <p className="">Toll – pass/Parking Toll is excluded</p>
+
+                      <p className="mt-4 text-[#FEBB1B]">
+                        Note: You have the option to reserve your ride 24 hours
+                        before your scheduled departure or due date.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-            </section>
 
-        </motion.div>
-    )
-}
+                <div className="laptop:w-1/2 laptop:mx-6">
+                  <div className="w-full tablet:px-8 tablet:border-none border px-2 border-white/5 py-10 mx-auto overflow-hidden bg-[#0C0C0C]  shadow-2xl rounded-xl  laptop:max-w-xl">
+                    <p className="mb-4 text-[#FEBB1B] laptop:hidden">
+                      Note: You have the option to reserve your ride 24 hours
+                      before your scheduled departure or due date.
+                    </p>
 
-export default Booking
+                    <form onSubmit={handleSubmit} className="">
+                      {/* Service Select */}
+                      <div className="w-full py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Select a service
+                        </label>
+                        <select
+                          value={service}
+                          onChange={(event) => handleServiceChange(event)}
+                          name="service"
+                          id="service"
+                          className="text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full"
+                        >
+                          <option value="" className="bg-black">
+                            Select Service
+                          </option>
+                          {getServiceOptions().map((option) => (
+                            <option
+                              key={option.value}
+                              value={option.value}
+                              className="bg-black"
+                            >
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Car Select */}
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Select a vehicle
+                        </label>
+                        <CarSelect
+                          cars={cars}
+                          handleCarChange={handleCarChange}
+                        />
+                      </div>
+
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Departure
+                        </label>
+                        <p className="text-[#FEBB1B] mt-2">Lagos</p>
+                      </div>
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Pick up date
+                        </label>
+                        <Space direction="vertical" className="w-full mb-1">
+                          <DatePicker
+                            onChange={(date, dateString) =>
+                              handleInputChange({
+                                target: {
+                                  name: "pickup_date",
+                                  value: dateString,
+                                },
+                              })
+                            }
+                            className="w-full text-[#A6A6A6]"
+                            disabledDate={(current) =>
+                              current && current < dayjs().endOf("day")
+                            }
+                            // style={{
+                            //     backgroundColor: 'transparent',
+                            //     color: 'white',
+                            // }}
+                            // pickerInputClass="custom-datepicker" // Add a custom class for the picker input
+                          />
+                        </Space>
+                        {/* className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
+                      </div>
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Pick Up time
+                        </label>
+                        <select
+                          name="pickup_time"
+                          id="pickup_time"
+                          value={pickup_time}
+                          onChange={(event) => handlepickup_timeChange(event)}
+                          className="text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full"
+                        >
+                          <option value="" className="bg-black">
+                            Select Time
+                          </option>
+                          {Times.map((time, index) => (
+                            <option
+                              key={index}
+                              value={time}
+                              className="bg-black"
+                            >
+                              {time}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          End date
+                        </label>
+                        <Space direction="vertical" className="w-full mb-1">
+                          <DatePicker
+                            onChange={(date, dateString) =>
+                              handleInputChange({
+                                target: { name: "end_date", value: dateString },
+                              })
+                            }
+                            className="w-full text-[#A6A6A6]"
+                            disabledDate={(current) =>
+                              current && current < dayjs().endOf("day")
+                            }
+                          />
+                        </Space>
+                        {/* className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
+                      </div>
+
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Drop Off time
+                        </label>
+                        <select
+                          name="drop_off_time"
+                          id="drop_off_time"
+                          value={drop_off_time}
+                          onChange={(event) => handledrop_off_timeChange(event)}
+                          className="text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full"
+                        >
+                          <option value="" className="bg-black">
+                            Select Time
+                          </option>
+                          {Times.map((time, index) => (
+                            <option
+                              key={index}
+                              value={time}
+                              className="bg-black"
+                            >
+                              {time}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Pick up address
+                        </label>
+                        <input
+                          id="pick_up_address"
+                          name="pick_up_address"
+                          type="text"
+                          value={values.pick_up_address}
+                          onChange={handleInputChange}
+                          placeholder="Address"
+                          className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
+                        />
+                      </div>
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          DROP OFF address
+                        </label>
+                        <input
+                          id="drop_off_address"
+                          name="drop_off_address"
+                          type="text"
+                          value={values.drop_off_address}
+                          onChange={handleInputChange}
+                          placeholder="Address"
+                          className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
+                        />
+                      </div>
+
+                      {/* Fuel Option Select */}
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Options
+                        </label>
+                        <select
+                          value={fuelOption}
+                          onChange={(event) => handleFuelOptionChange(event)}
+                          name="fuelOption"
+                          id="fuelOption"
+                          // trip_option
+                          // disabled={!selectedCar}
+                          className="text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full"
+                        >
+                          <option value="" className="bg-black">
+                            Select Fuel Option
+                          </option>
+                          {getFuelOptions(service).map((option) => (
+                            <option
+                              key={option.value}
+                              value={option.value}
+                              className="bg-black"
+                            >
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Display Price */}
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Price
+                        </label>
+                        {selectedCar && fuelOption && (
+                          <>
+                            {typeof calculatePrice() === "string" ? (
+                              <p className="text-red-500">{calculatePrice()}</p>
+                            ) : (
+                              <>
+                                <p className="text-[#FEBB1B] mt-2">
+                                  {`₦${calculatePrice().original}`}
+                                </p>
+                                <label className="block mt-2 mb-2 text-sm text-[#E5E7E8] capitalize">
+                                  With Discount:
+                                </label>
+                                <p className="text-[#FEBB1B] mt-2">
+                                  {`₦${calculatePrice().discounted}`}
+                                </p>
+                              </>
+                            )}
+                          </>
+                        )}
+                      </div>
+
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Name
+                        </label>
+                        <input
+                          id="name"
+                          name="name"
+                          type="text"
+                          value={values.name}
+                          onChange={handleInputChange}
+                          placeholder="John Doe"
+                          className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
+                        />
+                        {/* className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
+                      </div>
+
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Email address
+                        </label>
+                        <input
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={values.email}
+                          onChange={handleInputChange}
+                          placeholder="johndoe@example.com"
+                          className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
+                        />
+                      </div>
+
+                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                          Phone Number
+                        </label>
+                        <input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          value={values.phone}
+                          onChange={handleInputChange}
+                          placeholder="+234 123 456 789"
+                          className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-center">
+                        <button
+                          type="submit"
+                          className="py-3 mt-6 w-3/4 border border-transparent rounded-full font-medium bg-[#FEBB1B] text-black hover:border hover:border-[#FEBB1B] focus:outline-none hover:text-white hover:bg-transparent focus:ring-1 focus:ring-[#FEBB1B] "
+                        >
+                          Book Now
+                        </button>
+                      </div>
+                    </form>
+
+                    {/* Rental conditions */}
+                    <div className="bg-black laptop:hidden block mt-20 text-sm bg-opacity-60 py-6 px-4 ">
+                      <h2 className="text-center text-lg underline">
+                        Rental conditions:
+                      </h2>
+                      <p className="tablet:flex justify-between">
+                        Please note that our working period is between 6am –6pm.
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Normal Overtime Rate (7pm – 12 midnight){" "}
+                        <span>N2,000 per hour</span>
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Abnormal Overtime Rate (12 midnight—6 am){" "}
+                        <span>N2,500 per hour</span>
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Weekend Allowance <span>N3,000 per day</span>
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Public holiday allowance <span>N5,000 per day</span>
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Travel Allowance <span>N4,000 per day</span>
+                      </p>
+                      <p className="tablet:flex justify-between">
+                        - Outstation allowance <span>N10,000 per night</span>
+                      </p>
+                      <p className="">Toll – pass/Parking Toll is excluded</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </motion.div>
+  );
+};
+
+export default Booking;
