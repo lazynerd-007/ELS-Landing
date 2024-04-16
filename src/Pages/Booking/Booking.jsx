@@ -205,31 +205,34 @@ const Booking = () => {
   };
 
   const handleCarChange = (selectedOption) => {
-    if (selectedOption) {
-      const selectedCarId = selectedOption.value;
-      const selectedCar = cars.find((car) => car.id === selectedCarId);
+    const selectedCarId = selectedOption ? selectedOption.value : null;
+    const selectedCar = selectedCarId
+      ? cars.find((car) => car.id === selectedCarId)
+      : null;
 
-      console.log("Selected car:", selectedCar); // Check the selected car
+    setValues((prevValues) => ({
+      ...prevValues,
+      vehicle_id: selectedCarId || "",
+      // price: calculatePrice(selectedCar, fuelOption), // Calculate and set the price
+      price: calculatePrice(selectedCar, fuelOption).toString(), // Convert price to string
+    }));
+  };
 
-      if (selectedCar) {
-        // Update the values state using the functional form of setValues
-        setValues((prevValues) => ({
-          ...prevValues,
-          vehicle_id: selectedCarId,
-        }));
+  const handleFuelOptionChange = (event) => {
+    const newFuelOption = event.target.value;
+    setFuelOption(newFuelOption);
 
-        console.log("Updated values:", values); // Check the updated values
+    const selectedCarId = values.vehicle_id;
+    const selectedCar = selectedCarId
+      ? cars.find((car) => car.id === selectedCarId)
+      : null;
 
-        // Calculate and set the default price based on the selected service and fuel option
-        calculatePrice(selectedCar, fuelOption);
-      }
-    } else {
-      // Handle cases where no option is selected (e.g., cleared selection)
-      setValues({
-        ...values,
-        vehicle_id: "",
-      });
-    }
+    setValues((prevValues) => ({
+      ...prevValues,
+      trip_option: newFuelOption,
+      // price: calculatePrice(selectedCar, newFuelOption), // Calculate and set the price
+      price: calculatePrice(selectedCar, newFuelOption).toString(), // Convert price to string
+    }));
   };
 
   // const handleCarChange = (selectedOption) => {
@@ -256,49 +259,78 @@ const Booking = () => {
   //   }
   // };
 
-  const handleFuelOptionChange = (event) => {
-    const value = event.target.value;
-    setFuelOption(value);
+  // const handleFuelOptionChange = (event) => {
+  //   const value = event.target.value;
+  //   setFuelOption(value);
 
-    // Calculate and set the price based on the selected car and fuel option
-    calculatePrice(selectedCar, value);
+  //   // Calculate and set the price based on the selected car and fuel option
+  //   calculatePrice(selectedCar, value);
 
-    // Set the trip_option value in the values state
-    setValues({
-      ...values,
-      trip_option: value, // Update trip_option with fuel option value
-    });
-  };
+  //   // Set the trip_option value in the values state
+  //   setValues({
+  //     ...values,
+  //     trip_option: value, // Update trip_option with fuel option value
+  //   });
+  // };
 
   const calculatePrice = (selectedCar, fuelOption) => {
-    if (selectedCar && service) {
-      let price;
+    if (!selectedCar) return 0; // If no car is selected, return 0
 
-      if (service === "pickup") {
-        if (fuelOption === "withFuel") {
-          price = selectedCar.pickup_with_fuel_price;
-        } else if (fuelOption === "withoutFuel") {
-          price = selectedCar.pickup_without_fuel_price;
-        }
-      } else if (service === "rental") {
-        if (fuelOption === "withFuel") {
-          price = selectedCar.rental_with_fuel_price;
-        } else if (fuelOption === "withoutFuel") {
-          price = selectedCar.rental_without_fuel_price;
-        }
-      }
+    let basePrice = 0;
 
-      // Apply discount if available
-      if (selectedCar.has_discount) {
-        const discountPrice = selectedCar.discount_price[fuelOption];
-        setDiscountedPrice(discountPrice);
-      } else {
-        setDiscountedPrice(null);
-      }
-
-      setPrice(price);
+    if (service === "pickup") {
+      basePrice =
+        fuelOption === "withFuel"
+          ? selectedCar.pickup_with_fuel_price
+          : selectedCar.pickup_without_fuel_price;
+    } else if (service === "rental") {
+      basePrice =
+        fuelOption === "withFuel"
+          ? selectedCar.rental_with_fuel_price
+          : selectedCar.rental_without_fuel_price;
     }
+
+    // Only apply discount if fuelOption is set and matches a discount entry
+    if (
+      fuelOption &&
+      selectedCar.has_discount &&
+      selectedCar.discount_price[fuelOption]
+    ) {
+      return selectedCar.discount_price[fuelOption];
+    }
+
+    return basePrice;
   };
+
+  // const calculatePrice = (selectedCar, fuelOption) => {
+  //   if (selectedCar && service) {
+  //     let price;
+
+  //     if (service === "pickup") {
+  //       if (fuelOption === "withFuel") {
+  //         price = selectedCar.pickup_with_fuel_price;
+  //       } else if (fuelOption === "withoutFuel") {
+  //         price = selectedCar.pickup_without_fuel_price;
+  //       }
+  //     } else if (service === "rental") {
+  //       if (fuelOption === "withFuel") {
+  //         price = selectedCar.rental_with_fuel_price;
+  //       } else if (fuelOption === "withoutFuel") {
+  //         price = selectedCar.rental_without_fuel_price;
+  //       }
+  //     }
+
+  //     // Apply discount if available
+  //     if (selectedCar.has_discount) {
+  //       const discountPrice = selectedCar.discount_price[fuelOption];
+  //       setDiscountedPrice(discountPrice);
+  //     } else {
+  //       setDiscountedPrice(null);
+  //     }
+
+  //     setPrice(price);
+  //   }
+  // };
 
   const setPrice = (price) => {
     setValues({
