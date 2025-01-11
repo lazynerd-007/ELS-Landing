@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { DatePicker, Space } from "antd";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { Times } from "./content";
 import Select from "react-select";
 import car from "../../assets/Car2.png";
+import Video from "../../assets/ELS.mp4";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,9 +18,9 @@ const animationConfiguration = {
   exit: { opacity: 0 },
 };
 
-const onChange = (date, dateString) => {
-  // console.log(date, dateString);
-};
+// const onChange = (date, dateString) => {
+//   console.log(date, dateString);
+// };
 
 const CarSelect = ({ cars, handleCarChange }) => {
   // Function to customize how options are displayed
@@ -376,14 +377,32 @@ const Booking = () => {
         values={values}
       />
 
-      <section className="bg-[#0C0C0C] tablet:bg-hero-bg bg-cover bg-center text-white pt-20 laptop:pt-28">
-        <div className="pt- min-h-screen laptop:px-12 tablet:px-8 px-4">
+      <section className="bg-[#0C0C0C] tablet:bg-[#292D32] text-white pt-20 laptop:pt-28">
+        {/* bg-[#0C0C0C] tablet:bg-hero-bg bg-cover bg-center */}
+
+        {/* video bg */}
+        <div className="absolute inset-0 z-0">
+          <video
+            className="w-full h-screen object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+          >
+            <source src={Video} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black opacity-40 z-0"></div>
+
+        <div className="z-50 min-h-screen laptop:px-12 tablet:px-8 px-4">
           <div className="flex flex-col min-h-screen">
-            <div className="container flex flex-col flex-1 py-12 mx-auto">
+            <div className="container flex flex-col flex-1 py-12 mx-auto z-50">
               <div className="flex-1 laptop:flex laptop:items-cente laptop:-mx-6">
                 <div className="text-white space-y-10 laptop:w-1/2 laptop:mx-6 mb-10 laptop:mb-0 laptop:block">
                   <div className="">
-                    <div className="laptop:space-y-8 space-y-4 ">
+                    <div className="laptop:space-y-8 space-y-4">
                       <img
                         src={ColorBlocks}
                         className="mb-4"
@@ -435,7 +454,7 @@ const Booking = () => {
                   </div>
                 </div>
 
-                <div className="laptop:w-1/2 laptop:mx-6">
+                <div className="laptop:w-1/2 laptop:mx-6 z-50">
                   <div className="w-full tablet:px-8 tablet:border-none border px-2 border-white/5 py-10 mx-auto overflow-hidden bg-[#0C0C0C]  shadow-2xl rounded-xl  laptop:max-w-xl">
                     <p className="mb-4 text-[#FEBB1B] laptop:hidden">
                       Note: You have the option to reserve your ride 24 hours
