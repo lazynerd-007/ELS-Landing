@@ -61,7 +61,6 @@ const Booking = () => {
   const [selectedCar, setSelectedCar] = useState("");
   const [fuelOption, setFuelOption] = useState("");
   const [pickup_time, setpickup_time] = useState("");
-  const [drop_off_time, setdrop_off_time] = useState("");
   const [discountedPrice, setDiscountedPrice] = useState("");
   const [openModal, setOpenModal] = useState(false);
   // State to store the list of cars
@@ -72,7 +71,7 @@ const Booking = () => {
     const fetchCars = async () => {
       try {
         const response = await fetch(
-          "https://fms.elsluxuryblackcar.com/api/vehicles"
+          "https://els.lazynerdstudios.com/api/vehicles"
         );
         if (response.ok) {
           const data = await response.json();
@@ -113,17 +112,17 @@ const Booking = () => {
 
     // Check if any of the fields are empty
     if (
-      !values.name ||
-      !values.email ||
-      !values.phone ||
-      !values.service ||
-      !values.vehicle_id ||
-      !values.pickup_date ||
-      !values.pickup_time ||
-      !values.end_date ||
-      !values.drop_off_time ||
-      !values.pick_up_address ||
-      !values.trip_option
+      !values.name
+      // !values.email ||
+      // !values.phone ||
+      // !values.service ||
+      // !values.vehicle_id ||
+      // !values.pickup_date ||
+      // !values.pickup_time ||
+      // !values.end_date ||
+      // !values.drop_off_time ||
+      // !values.pick_up_address ||
+      // !values.trip_option
     ) {
       // Display an error toast
       toast.error("Please fill out all fields");
@@ -132,7 +131,7 @@ const Booking = () => {
 
     try {
       const response = await fetch(
-        "https://fms.elsluxuryblackcar.com/api/bookVehicle",
+        "https://els.lazynerdstudios.com/api/bookVehicle",
         {
           method: "POST",
           headers: {
@@ -181,15 +180,8 @@ const Booking = () => {
   // Form select logic
   const getServiceOptions = () => {
     return [
-      { value: "pickup", label: "Airport Pickup" },
       { value: "rental", label: "Daily Rental" },
-    ];
-  };
-
-  const getFuelOptions = (service) => {
-    return [
-      { value: "withFuel", label: "With Fuel" },
-      { value: "withoutFuel", label: "Without Fuel" },
+      { value: "hourly", label: "Hourly Rental" },
     ];
   };
 
@@ -197,7 +189,6 @@ const Booking = () => {
     const value = event.target.value;
     setService(value);
     setSelectedCar(""); // Reset selectedCar when changing service
-    setFuelOption(""); // Reset fuelOption when changing service
     setValues({
       ...values,
       service: value,
@@ -215,67 +206,12 @@ const Booking = () => {
       ...prevValues,
       vehicle_id: selectedCarId || "",
       // price: calculatePrice(selectedCar, fuelOption), // Calculate and set the price
-      price: calculatePrice(selectedCar, fuelOption).toString(), // Convert price to string
+      price: calculatePrice(selectedCar, fuelOption).toString(),
     }));
   };
-
-  const handleFuelOptionChange = (event) => {
-    const newFuelOption = event.target.value;
-    setFuelOption(newFuelOption);
-
-    const selectedCarId = values.vehicle_id;
-    const selectedCar = selectedCarId
-      ? cars.find((car) => car.id === selectedCarId)
-      : null;
-
-    setValues((prevValues) => ({
-      ...prevValues,
-      trip_option: newFuelOption,
-      // price: calculatePrice(selectedCar, newFuelOption), // Calculate and set the price
-      price: calculatePrice(selectedCar, newFuelOption).toString(), // Convert price to string
-    }));
-  };
-
-  // const handleCarChange = (selectedOption) => {
-  //   if (selectedOption) {
-  //     const selectedCarId = selectedOption.value;
-  //     const selectedCar = cars.find((car) => car.id === selectedCarId);
-
-  //     if (selectedCar) {
-  //       // Set the selected car's ID as the vehicle_id in the values state
-  //       setValues({
-  //         ...values,
-  //         vehicle_id: selectedCarId,
-  //       });
-
-  //       // Calculate and set the default price based on the selected service and fuel option
-  //       calculatePrice(selectedCar, fuelOption);
-  //     }
-  //   } else {
-  //     // Handle cases where no option is selected (e.g., cleared selection)
-  //     setValues({
-  //       ...values,
-  //       vehicle_id: "",
-  //     });
-  //   }
-  // };
-
-  // const handleFuelOptionChange = (event) => {
-  //   const value = event.target.value;
-  //   setFuelOption(value);
-
-  //   // Calculate and set the price based on the selected car and fuel option
-  //   calculatePrice(selectedCar, value);
-
-  //   // Set the trip_option value in the values state
-  //   setValues({
-  //     ...values,
-  //     trip_option: value, // Update trip_option with fuel option value
-  //   });
-  // };
 
   const calculatePrice = (selectedCar, fuelOption) => {
-    if (!selectedCar) return 0; // If no car is selected, return 0
+    if (!selectedCar) return 0;
 
     let basePrice = 0;
 
@@ -303,36 +239,6 @@ const Booking = () => {
     return basePrice;
   };
 
-  // const calculatePrice = (selectedCar, fuelOption) => {
-  //   if (selectedCar && service) {
-  //     let price;
-
-  //     if (service === "pickup") {
-  //       if (fuelOption === "withFuel") {
-  //         price = selectedCar.pickup_with_fuel_price;
-  //       } else if (fuelOption === "withoutFuel") {
-  //         price = selectedCar.pickup_without_fuel_price;
-  //       }
-  //     } else if (service === "rental") {
-  //       if (fuelOption === "withFuel") {
-  //         price = selectedCar.rental_with_fuel_price;
-  //       } else if (fuelOption === "withoutFuel") {
-  //         price = selectedCar.rental_without_fuel_price;
-  //       }
-  //     }
-
-  //     // Apply discount if available
-  //     if (selectedCar.has_discount) {
-  //       const discountPrice = selectedCar.discount_price[fuelOption];
-  //       setDiscountedPrice(discountPrice);
-  //     } else {
-  //       setDiscountedPrice(null);
-  //     }
-
-  //     setPrice(price);
-  //   }
-  // };
-
   const setPrice = (price) => {
     setValues({
       ...values,
@@ -348,17 +254,6 @@ const Booking = () => {
     setValues({
       ...values,
       pickup_time: value,
-    });
-  };
-
-  // dropoff
-  const handledrop_off_timeChange = (event) => {
-    const value = event.target.value;
-    setdrop_off_time(value);
-    // console.log('Dropoff Time:', value);
-    setValues({
-      ...values,
-      drop_off_time: value,
     });
   };
 
@@ -504,8 +399,27 @@ const Booking = () => {
                         <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
                           Departure
                         </label>
-                        <p className="text-[#FEBB1B] mt-2">Lagos</p>
+
+                        <select
+                          name="departure"
+                          id="departure"
+                          className="text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full"
+                        >
+                          <option value="" className="bg-black">
+                            Select state
+                          </option>
+                          <option value="Lagos" className="bg-black">
+                            Lagos
+                          </option>
+                          <option value="Abuja" className="bg-black">
+                            Abuja
+                          </option>
+                          <option value="Port-Harcourt" className="bg-black">
+                            Port-Harcourt
+                          </option>
+                        </select>
                       </div>
+
                       <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
                         <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
                           Pick up date
@@ -558,51 +472,6 @@ const Booking = () => {
                           ))}
                         </select>
                       </div>
-                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                          End date
-                        </label>
-                        <Space direction="vertical" className="w-full mb-1">
-                          <DatePicker
-                            onChange={(date, dateString) =>
-                              handleInputChange({
-                                target: { name: "end_date", value: dateString },
-                              })
-                            }
-                            className="w-full text-[#A6A6A6]"
-                            disabledDate={(current) =>
-                              current && current < dayjs().endOf("day")
-                            }
-                          />
-                        </Space>
-                        {/* className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
-                      </div>
-
-                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                          Drop Off time
-                        </label>
-                        <select
-                          name="drop_off_time"
-                          id="drop_off_time"
-                          value={drop_off_time}
-                          onChange={(event) => handledrop_off_timeChange(event)}
-                          className="text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full"
-                        >
-                          <option value="" className="bg-black">
-                            Select Time
-                          </option>
-                          {Times.map((time, index) => (
-                            <option
-                              key={index}
-                              value={time}
-                              className="bg-black"
-                            >
-                              {time}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
 
                       <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
                         <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
@@ -618,6 +487,7 @@ const Booking = () => {
                           className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
                         />
                       </div>
+
                       <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
                         <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
                           DROP OFF address
@@ -631,35 +501,6 @@ const Booking = () => {
                           placeholder="Address"
                           className="block w-full py-2 mb-1 text-[#A6A6A6] bg-transparent border-b border-x-transparent border-t-transparent border-gray-200 focus:ring-opacity-40 focus:outline-none focus:ring-transparent"
                         />
-                      </div>
-
-                      {/* Fuel Option Select */}
-                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                          Options
-                        </label>
-                        <select
-                          value={fuelOption}
-                          onChange={(event) => handleFuelOptionChange(event)}
-                          name="fuelOption"
-                          id="fuelOption"
-                          // trip_option
-                          // disabled={!selectedCar}
-                          className="text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full"
-                        >
-                          <option value="" className="bg-black">
-                            Select Fuel Option
-                          </option>
-                          {getFuelOptions(service).map((option) => (
-                            <option
-                              key={option.value}
-                              value={option.value}
-                              className="bg-black"
-                            >
-                              {option.label}
-                            </option>
-                          ))}
-                        </select>
                       </div>
 
                       {/* Display Price */}
