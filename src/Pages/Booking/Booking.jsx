@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { DatePicker, Space } from "antd";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
-import { Times } from "./content";
 import Select from "react-select";
 import car from "../../assets/Car2.png";
 import Video from "../../assets/ELS.mp4";
@@ -18,37 +17,32 @@ const animationConfiguration = {
   exit: { opacity: 0 },
 };
 
-// const onChange = (date, dateString) => {
-//   console.log(date, dateString);
-// };
-
 const CarSelect = ({ cars, handleCarChange }) => {
   // Function to customize how options are displayed
-  const formatOptionLabel = ({ value, label, alt, customAbbreviation }) => (
-    <div className="flex items-center">
-      <img
-        // src={customAbbreviation}
-        src={car}
-        alt={alt}
-        style={{ width: 50, marginRight: 30 }}
-      />
-      <div>{label}</div>
-    </div>
-  );
+  const formatOptionLabel = ({ value, label, alt, carImage }) => {
+    // Fallback image if model_image is null or undefined
+    const imageSrc = carImage || car;
+
+    return (
+      <div className="flex items-center">
+        <img src={imageSrc} alt={alt} style={{ width: 50, marginRight: 30 }} />
+        <div>{label}</div>
+      </div>
+    );
+  };
 
   // Preparing options for react-select
   const options = cars.map((car) => ({
     value: car.id,
     label: `${car.modelName}`,
-    // - (${car.status})
     alt: `${car.vehicle_type}`,
-    customAbbreviation: car.model_image,
+    carImage: car.model_image,
   }));
 
   return (
     <Select
       options={options}
-      onChange={handleCarChange} // Ensure this is connected correctly
+      onChange={handleCarChange}
       formatOptionLabel={formatOptionLabel}
       placeholder="Select vehicle"
       className="text-[#A6A6A6] cursor-pointer py-1 rounded-sm bg-transparent border-none w-full"
@@ -59,8 +53,7 @@ const CarSelect = ({ cars, handleCarChange }) => {
 const Booking = () => {
   const [service, setService] = useState("");
   const [selectedCar, setSelectedCar] = useState("");
-  const [fuelOption, setFuelOption] = useState("");
-  const [pickup_time, setpickup_time] = useState("");
+  const [time_frame, settime_frame] = useState("");
   const [discountedPrice, setDiscountedPrice] = useState("");
   const [openModal, setOpenModal] = useState(false);
   // State to store the list of cars
@@ -94,14 +87,13 @@ const Booking = () => {
     phone: "",
     service: "",
     vehicle_id: "",
-    // departure: '',
+    departure: "",
     pickup_date: "",
-    pickup_time: "",
-    end_date: "",
-    drop_off_time: "",
+    // time_frame: "",
+    hours: "",
     pick_up_address: "",
     drop_off_address: "",
-    trip_option: "",
+    trip_option: "with_fuel",
     price: "",
   });
 
@@ -112,17 +104,15 @@ const Booking = () => {
 
     // Check if any of the fields are empty
     if (
-      !values.name
-      // !values.email ||
-      // !values.phone ||
-      // !values.service ||
-      // !values.vehicle_id ||
-      // !values.pickup_date ||
-      // !values.pickup_time ||
-      // !values.end_date ||
-      // !values.drop_off_time ||
+      !values.name ||
+      !values.email ||
+      !values.phone ||
+      !values.service ||
+      !values.vehicle_id ||
+      !values.pickup_date ||
+      !values.time_frame ||
+      !values.departure
       // !values.pick_up_address ||
-      // !values.trip_option
     ) {
       // Display an error toast
       toast.error("Please fill out all fields");
@@ -180,8 +170,8 @@ const Booking = () => {
   // Form select logic
   const getServiceOptions = () => {
     return [
-      { value: "rental", label: "Daily Rental" },
-      { value: "hourly", label: "Hourly Rental" },
+      { value: "daily_rental", label: "Daily Rental" },
+      { value: "hourly_rental", label: "Hourly Rental" },
     ];
   };
 
@@ -202,59 +192,40 @@ const Booking = () => {
       ? cars.find((car) => car.id === selectedCarId)
       : null;
 
+    if (!selectedCar) {
+      console.log("No car found for ID:", selectedCarId);
+      return;
+    }
+
+    const price = calculatePrice(selectedCar);
     setValues((prevValues) => ({
       ...prevValues,
       vehicle_id: selectedCarId || "",
-      // price: calculatePrice(selectedCar, fuelOption), // Calculate and set the price
-      price: calculatePrice(selectedCar, fuelOption).toString(),
+      price: price !== undefined && price !== null ? price.toString() : "0",
     }));
   };
 
-  const calculatePrice = (selectedCar, fuelOption) => {
-    if (!selectedCar) return 0;
-
-    let basePrice = 0;
-
-    if (service === "pickup") {
-      basePrice =
-        fuelOption === "withFuel"
-          ? selectedCar.pickup_with_fuel_price
-          : selectedCar.pickup_without_fuel_price;
-    } else if (service === "rental") {
-      basePrice =
-        fuelOption === "withFuel"
-          ? selectedCar.rental_with_fuel_price
-          : selectedCar.rental_without_fuel_price;
-    }
-
-    // Only apply discount if fuelOption is set and matches a discount entry
-    if (
-      fuelOption &&
-      selectedCar.has_discount &&
-      selectedCar.discount_price[fuelOption]
-    ) {
-      return selectedCar.discount_price[fuelOption];
-    }
-
-    return basePrice;
-  };
-
-  const setPrice = (price) => {
-    setValues({
-      ...values,
-      price: price,
-    });
-  };
-
-  // pickup
-  const handlepickup_timeChange = (event) => {
+  const handletime_frameChange = (event) => {
     const value = event.target.value;
-    setpickup_time(value);
-    // console.log('Pickup Time:', value);
-    setValues({
-      ...values,
-      pickup_time: value,
-    });
+    const hours = value ? parseInt(value.split(" ")[0]) : ""; // Extract the numeric value from the selected option
+    setValues((prevValues) => ({
+      ...prevValues,
+      hours, // Update the 'hours' field in the state
+    }));
+    calculatePrice(service, hours, selectedCar);
+  };
+
+  const calculatePrice = (service, timeFrame, vehicle) => {
+    if (!vehicle) return;
+    if (service === "daily_rental") {
+      setValues((prev) => ({ ...prev, price: vehicle.daily_rental }));
+    } else if (service === "hourly_rental") {
+      const hours = parseInt(timeFrame, 10) || 0;
+      setValues((prev) => ({
+        ...prev,
+        price: vehicle.hourly_rental * hours,
+      }));
+    }
   };
 
   return (
@@ -404,6 +375,13 @@ const Booking = () => {
                           name="departure"
                           id="departure"
                           className="text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full"
+                          value={values.departure}
+                          onChange={(e) =>
+                            setValues((prevValues) => ({
+                              ...prevValues,
+                              departure: e.target.value,
+                            }))
+                          }
                         >
                           <option value="" className="bg-black">
                             Select state
@@ -445,33 +423,35 @@ const Booking = () => {
                             // pickerInputClass="custom-datepicker" // Add a custom class for the picker input
                           />
                         </Space>
-                        {/* className='text-[#A6A6A6] cursor-pointer py-1 px-2 rounded-sm bg-transparent border-none w-full' */}
                       </div>
-                      <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
-                        <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
-                          Pick Up time
-                        </label>
-                        <select
-                          name="pickup_time"
-                          id="pickup_time"
-                          value={pickup_time}
-                          onChange={(event) => handlepickup_timeChange(event)}
-                          className="text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full"
-                        >
-                          <option value="" className="bg-black">
-                            Select Time
-                          </option>
-                          {Times.map((time, index) => (
-                            <option
-                              key={index}
-                              value={time}
-                              className="bg-black"
-                            >
-                              {time}
+
+                      {service === "hourly_rental" && (
+                        <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
+                          <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
+                            Time Frame
+                          </label>
+                          <select
+                            name="time_frame"
+                            id="time_frame"
+                            value={values.hours} // Bind to 'hours'
+                            onChange={handletime_frameChange}
+                            className="text-[#A6A6A6] uppercase py-1 px-2 rounded-sm bg-transparent border-none w-full"
+                          >
+                            <option value="" className="bg-black">
+                              Select Time
                             </option>
-                          ))}
-                        </select>
-                      </div>
+                            {[...Array(12).keys()].map((hour) => (
+                              <option
+                                key={hour + 1}
+                                value={`${hour + 1} hour${hour > 0 ? "s" : ""}`} // Display remains unchanged
+                                className="bg-black"
+                              >
+                                {hour + 1} hour{hour > 0 ? "s" : ""}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
 
                       <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
                         <label className="block mb-2 text-sm text-[#E5E7E8] uppercase">
@@ -509,7 +489,7 @@ const Booking = () => {
                           Price
                         </label>
                         <p className="text-[#FEBB1B] mt-2">₦ {values.price}</p>
-                        {discountedPrice && (
+                        {/* {discountedPrice && (
                           <>
                             <label className="block mt-2 mb-2 text-sm text-[#E5E7E8] capitalize">
                               With Discount:
@@ -518,7 +498,7 @@ const Booking = () => {
                               ₦ {discountedPrice}
                             </p>
                           </>
-                        )}
+                        )} */}
                       </div>
 
                       <div className="w-full mt-6 py-2 px-4 rounded-lg bg-[#292D32]">
