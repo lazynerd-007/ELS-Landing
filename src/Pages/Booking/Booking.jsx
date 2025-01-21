@@ -108,9 +108,8 @@ const Booking = () => {
       !values.email ||
       !values.phone ||
       !values.service ||
-      !values.vehicle_id ||
       !values.pickup_date ||
-      !values.time_frame ||
+      // !values.hours ||
       !values.departure
       // !values.pick_up_address ||
     ) {
