@@ -18,11 +18,9 @@ const animationConfiguration = {
 };
 
 const CarSelect = ({ cars, handleCarChange }) => {
-  // Function to customize how options are displayed
   const formatOptionLabel = ({ value, label, alt, carImage }) => {
     // Fallback image if model_image is null or undefined
     const imageSrc = carImage || car;
-
     return (
       <div className="flex items-center">
         <img src={imageSrc} alt={alt} style={{ width: 50, marginRight: 30 }} />
@@ -31,12 +29,13 @@ const CarSelect = ({ cars, handleCarChange }) => {
     );
   };
 
-  // Preparing options for react-select
   const options = cars.map((car) => ({
     value: car.id,
     label: `${car.modelName}`,
     alt: `${car.vehicle_type}`,
     carImage: car.model_image,
+    daily_rental: car.daily_rental,
+    hourly_rental: car.hourly_rental,
   }));
 
   return (
@@ -52,14 +51,24 @@ const CarSelect = ({ cars, handleCarChange }) => {
 
 const Booking = () => {
   const [service, setService] = useState("");
-  const [selectedCar, setSelectedCar] = useState("");
+  const [selectedCar, setSelectedCar] = useState(null);
   const [time_frame, settime_frame] = useState("");
-  const [discountedPrice, setDiscountedPrice] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  // State to store the list of cars
   const [cars, setCars] = useState([]);
+  const [values, setValues] = useState({
+    service: "",
+    vehicle_id: "",
+    departure: "",
+    pickup_date: "",
+    hours: "",
+    pick_up_address: "",
+    drop_off_address: "",
+    name: "",
+    email: "",
+    phone: "",
+    price: 0,
+  });
 
-  // Fetch cars from the API endpoint
   useEffect(() => {
     const fetchCars = async () => {
       try {
@@ -68,7 +77,6 @@ const Booking = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          // Set the list of cars in state
           setCars(data.vehicles);
         } else {
           console.error("Failed to fetch cars:", response.statusText);
@@ -77,48 +85,117 @@ const Booking = () => {
         console.error("Error fetching cars:", error);
       }
     };
-
     fetchCars();
-  }, []); // Run only once on component mount
+  }, []);
 
-  const [values, setValues] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    vehicle_id: "",
-    departure: "",
-    pickup_date: "",
-    // time_frame: "",
-    hours: "",
-    pick_up_address: "",
-    drop_off_address: "",
-    trip_option: "with_fuel",
-    price: "",
-  });
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    window.location.reload();
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleServiceChange = (event) => {
+    const selectedService = event.target.value;
+    setService(selectedService);
+    setValues((prevValues) => ({
+      ...prevValues,
+      service: selectedService,
+      hours: "",
+      price: 0,
+    }));
+  };
 
-    console.log("Form values before submission:", values); // Check the values before submission
+  const handleCarChange = (selectedOption) => {
+    setSelectedCar(selectedOption);
 
-    // Check if any of the fields are empty
-    if (
-      !values.name ||
-      !values.email ||
-      !values.phone ||
-      !values.service ||
-      !values.pickup_date ||
-      // !values.hours ||
-      !values.departure
-      // !values.pick_up_address ||
-    ) {
-      // Display an error toast
-      toast.error("Please fill out all fields");
+    // Calculate price based on service type
+    let price = 0;
+    if (service === "daily_rental") {
+      price = selectedOption.daily_rental;
+    } else if (service === "hourly_rental" && time_frame) {
+      const hourCount = parseInt(time_frame);
+      price = selectedOption.hourly_rental * hourCount;
+    }
+
+    setValues((prevValues) => ({
+      ...prevValues,
+      vehicle_id: selectedOption.value,
+      price: price.toFixed(2),
+    }));
+  };
+
+  const handletime_frameChange = (event) => {
+    const selectedTimeFrame = event.target.value;
+    const hourCount = parseInt(selectedTimeFrame);
+
+    settime_frame(selectedTimeFrame);
+
+    // Recalculate price if car and service are already selected
+    if (selectedCar && service === "hourly_rental") {
+      const price = selectedCar.hourly_rental * hourCount;
+
+      setValues((prevValues) => ({
+        ...prevValues,
+        hours: selectedTimeFrame,
+        price: price.toFixed(2),
+      }));
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const requiredFields = [
+      "service",
+      "vehicle_id",
+      "departure",
+      "pickup_date",
+      "pick_up_address",
+      "drop_off_address",
+      "name",
+      "email",
+      "phone",
+    ];
+
+    // Validate hours for hourly rental
+    if (service === "hourly_rental" && !values.hours) {
+      toast.error("Please select a time frame for hourly rental");
+      return;
+    }
+
+    const missingFields = requiredFields.filter((field) => {
+      const value = values[field];
+      return (
+        value === undefined ||
+        value === null ||
+        value === "" ||
+        (typeof value === "string" && value.trim() === "")
+      );
+    });
+
+    if (missingFields.length > 0) {
+      toast.error(
+        `Please fill in all required fields: ${missingFields.join(", ")}`
+      );
       return;
     }
 
     try {
+      // Create a copy of values to modify
+      const submitValues = { ...values };
+
+      // Then extract just the number from hours string if it exists
+      if (service === "hourly_rental" && submitValues.hours) {
+        submitValues.hours = parseInt(submitValues.hours.split(" ")[0]);
+      }
+
       const response = await fetch(
         "https://els.lazynerdstudios.com/api/bookVehicle",
         {
@@ -127,104 +204,32 @@ const Booking = () => {
             Accept: "application/json",
             "Content-Type": "application/json",
             "X-API-Key": "pEzfI487GKExKu0BeSOXNqOSYORHzCCj20ZAEQTC4W8=",
-            //   "X-API-Key": "api_key",
           },
-          body: JSON.stringify(values),
+          body: JSON.stringify(submitValues),
         }
       );
 
+      const responseData = await response.json();
+
       if (response.ok) {
-        // Handle successful response
-        const responseData = await response.json();
-        console.log("Booking successful:", responseData);
+        toast.success("Booking successful!");
         setOpenModal(true);
       } else {
-        // Handle error response
-        console.error("Error:", response.statusText);
-        toast.error("Failed to book vehicle");
+        toast.error(
+          responseData.message || "Booking failed. Please try again."
+        );
       }
     } catch (error) {
-      // Handle fetch error
-      console.error("Fetch error:", error);
-      toast.error("Failed to book vehicle");
+      console.error("Booking error:", error);
+      toast.error("An error occurred. Please try again.");
     }
   };
 
-  const handleCloseModal = () => {
-    // Close the modal
-    setOpenModal(false);
-
-    // Or Refresh the page
-    window.location.reload();
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
-
-  // Form select logic
   const getServiceOptions = () => {
     return [
       { value: "daily_rental", label: "Daily Rental" },
       { value: "hourly_rental", label: "Hourly Rental" },
     ];
-  };
-
-  const handleServiceChange = (event) => {
-    const value = event.target.value;
-    setService(value);
-    setSelectedCar(""); // Reset selectedCar when changing service
-    setValues({
-      ...values,
-      service: value,
-      vehicle_id: "", // Reset selectedCar
-    });
-  };
-
-  const handleCarChange = (selectedOption) => {
-    const selectedCarId = selectedOption ? selectedOption.value : null;
-    const selectedCar = selectedCarId
-      ? cars.find((car) => car.id === selectedCarId)
-      : null;
-
-    if (!selectedCar) {
-      console.log("No car found for ID:", selectedCarId);
-      return;
-    }
-
-    const price = calculatePrice(selectedCar);
-    setValues((prevValues) => ({
-      ...prevValues,
-      vehicle_id: selectedCarId || "",
-      price: price !== undefined && price !== null ? price.toString() : "0",
-    }));
-  };
-
-  const handletime_frameChange = (event) => {
-    const value = event.target.value;
-    const hours = value ? parseInt(value.split(" ")[0]) : ""; // Extract the numeric value from the selected option
-    setValues((prevValues) => ({
-      ...prevValues,
-      hours, // Update the 'hours' field in the state
-    }));
-    calculatePrice(service, hours, selectedCar);
-  };
-
-  const calculatePrice = (service, timeFrame, vehicle) => {
-    if (!vehicle) return;
-    if (service === "daily_rental") {
-      setValues((prev) => ({ ...prev, price: vehicle.daily_rental }));
-    } else if (service === "hourly_rental") {
-      const hours = parseInt(timeFrame, 10) || 0;
-      setValues((prev) => ({
-        ...prev,
-        price: vehicle.hourly_rental * hours,
-      }));
-    }
   };
 
   return (
