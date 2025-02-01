@@ -31,10 +31,6 @@ export const BookingModal = ({ openModal, onClose, values }) => {
               <span className="text-green-500 text-xl">
                 {values.pickup_date || "Date"}
               </span>{" "}
-              at{" "}
-              <span className="text-green-500 text-xl">
-                {values.pickup_time || "Time"}
-              </span>{" "}
               to take you to your destination. Thank you for booking a ride with
               us. You will be attended to shortly.
             </p>
